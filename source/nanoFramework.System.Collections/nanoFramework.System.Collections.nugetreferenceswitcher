@@ -1,0 +1,2 @@
+CoreLibrary	E:/GitHub/nflib-CoreLibrary/source/nanoFramework.CoreLibrary/CoreLibrary.nfproj	../Projects/packages/nanoFramework.CoreLibrary.1.4.1-preview.1/lib/mscorlib.dll
+nanoFramework.System.Collections	nanoFramework.System.Collections.nfproj	../packages/nanoFramework.CoreLibrary.1.4.1-preview.1/lib/mscorlib.dll
