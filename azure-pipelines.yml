@@ -49,6 +49,15 @@ steps:
   parameters:
     sonarCloudProject: 'nanoframework_lib-nanoFramework.System.Collections'
 
+# update dependencies
+- task: UpdatenFDependencies@1
+  inputs:
+    gitHubToken: $(GitHubToken)
+    repositoriesToUpdate: |
+      lib-nanoFramework.System.Net.Http
+  condition: or( and( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v') ), and( succeeded(), contains(variables['getCommitMessage.COMMIT_MESSAGE'], '***UPDATE_DEPENDENTS***') ), eq(variables['UPDATE_DEPENDENTS'], 'true') )
+  displayName: Update dependent class libs
+
 # step from template @ nf-tools repo
 # report error
 - template: azure-pipelines-templates/discord-webhook-task.yml@templates  
