@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.0.1](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.1) (2020-06-12)
+
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.1-preview.11...v1.0.1)
+
+**Documentation and other chores:**
+
+- Release release-v1.0.1 [\#14](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/14)
+
 ## [v1.0.1-preview.11](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.1-preview.11) (2020-06-11)
 
 [Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.1-preview.7...v1.0.1-preview.11)
