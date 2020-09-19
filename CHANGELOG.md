@@ -2,7 +2,31 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.1-preview.7...HEAD)
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.1.0...HEAD)
+
+**Documentation and other chores:**
+
+- Update dependencies [\#16](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/16)
+
+## [v1.1.0](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.1.0) (2020-06-30)
+
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.1...v1.1.0)
+
+**Documentation and other chores:**
+
+- release-v1.1.0 [\#15](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/15)
+
+## [v1.0.1](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.1) (2020-06-12)
+
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.1-preview.11...v1.0.1)
+
+**Documentation and other chores:**
+
+- Release release-v1.0.1 [\#14](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/14)
+
+## [v1.0.1-preview.11](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.1-preview.11) (2020-06-11)
+
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.1-preview.7...v1.0.1-preview.11)
 
 **Documentation and other chores:**
 
