@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.2.0-preview.3...HEAD)
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.2.0-preview.10...HEAD)
+
+**Documentation and other chores:**
+
+- Bumps nanoFramework.CoreLibrary from 1.9.0-preview.5 to 1.9.1-preview.4 [\#18](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/18)
+
+## [v1.2.0-preview.10](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.2.0-preview.10) (2020-10-01)
+
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.2.0-preview.3...v1.2.0-preview.10)
 
 **Documentation and other chores:**
 
