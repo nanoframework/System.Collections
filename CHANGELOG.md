@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.2.0-preview.12...HEAD)
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.2.0-preview.14...HEAD)
+
+**Documentation and other chores:**
+
+- Bumps nanoFramework.CoreLibrary from 1.9.1-preview.6 to 1.10.0-preview.4 [\#22](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/22)
+
+## [v1.2.0-preview.14](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.2.0-preview.14) (2020-10-21)
+
+[Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.2.0-preview.12...v1.2.0-preview.14)
 
 **Documentation and other chores:**
 
@@ -79,6 +87,7 @@
 **Documentation and other chores:**
 
 - Bumps nanoFramework.CoreLibrary from 1.7.2-preview.5 to 1.7.2-preview.6 [\#10](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/10)
+- Bumps nanoFramework.CoreLibrary from 1.5.1-preview.1 to 1.6.0-preview.1 [\#3](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/3)
 
 ## [v1.0.1-preview.4](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.1-preview.4) (2020-04-27)
 
@@ -135,10 +144,6 @@
 ## [v1.0.0-preview.7](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.0-preview.7) (2019-11-14)
 
 [Full Changelog](https://github.com/nanoframework/lib-nanoFramework.System.Collections/compare/v1.0.0-preview.6...v1.0.0-preview.7)
-
-**Documentation and other chores:**
-
-- Bumps nanoFramework.CoreLibrary from 1.5.1-preview.1 to 1.6.0-preview.1 [\#3](https://github.com/nanoframework/lib-nanoFramework.System.Collections/pull/3)
 
 ## [v1.0.0-preview.6](https://github.com/nanoframework/lib-nanoFramework.System.Collections/tree/v1.0.0-preview.6) (2019-11-07)
 
