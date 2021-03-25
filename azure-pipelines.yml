@@ -33,9 +33,13 @@ steps:
 - template: azure-pipelines-templates/class-lib-build.yml@templates
   parameters:
     sonarCloudProject: 'nanoframework_lib-nanoFramework.System.Collections'
+    runUnitTests: true
+    unitTestRunsettings: '$(System.DefaultWorkingDirectory)\Tests\HashtableTests\nano.runsettings'
 
 # update dependencies
 - task: UpdatenFDependencies@1
+  condition: or( and( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v') ), and( succeeded(), contains(variables['Build.SourceVersionMessage'], '***UPDATE_DEPENDENTS***') ), eq(variables['UPDATE_DEPENDENTS'], 'true') )
+  displayName: Update dependent class libs
   inputs:
     gitHubToken: $(GitHubToken)
     repositoriesToUpdate: |
@@ -44,8 +48,6 @@ steps:
       nanoFramework.Graphics
       paho.mqtt.m2mqtt
       amqpnetlite
-  condition: or( and( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v') ), and( succeeded(), contains(variables['Build.SourceVersionMessage'], '***UPDATE_DEPENDENTS***') ), eq(variables['UPDATE_DEPENDENTS'], 'true') )
-  displayName: Update dependent class libs
 
 # step from template @ nf-tools repo
 # report error
