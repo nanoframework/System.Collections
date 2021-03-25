@@ -24,7 +24,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   nugetPackageName: 'nanoFramework.System.Collections'
-  repoName: 'lib-nanoFramework.System.Collections'
+  repoName: 'nanoFramework.System.Collections'
 
 steps:
 
