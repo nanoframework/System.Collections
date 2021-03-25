@@ -1,6 +1,6 @@
 trigger:
   branches:
-    include: [master, develop, "release-*" ]
+    include: [main, develop, "release-*" ]
   paths:
     exclude: ["*.md", .gitignore]
   tags:
@@ -39,9 +39,9 @@ steps:
   inputs:
     gitHubToken: $(GitHubToken)
     repositoriesToUpdate: |
-      lib-nanoFramework.System.Net.Http
-      lib-nanoFramework.Json
-      lib-nanoFramework.Graphics
+      nanoFramework.System.Net.Http
+      nanoFramework.Json
+      nanoFramework.Graphics
       paho.mqtt.m2mqtt
       amqpnetlite
   condition: or( and( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v') ), and( succeeded(), contains(variables['Build.SourceVersionMessage'], '***UPDATE_DEPENDENTS***') ), eq(variables['UPDATE_DEPENDENTS'], 'true') )

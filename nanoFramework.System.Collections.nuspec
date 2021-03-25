@@ -32,7 +32,7 @@
     <file src="nanoFramework.System.Collections\bin\Release\nanoFramework.System.Collections.pe" target="lib\nanoFramework.System.Collections.pe" />
     <file src="nanoFramework.System.Collections\bin\Release\nanoFramework.System.Collections.xml" target="lib\nanoFramework.System.Collections.xml" />
     <file src="assets\readme.txt" target="" />
-    <file src="assets\nf-logo.png" target="" />
+    <file src="assets\nf-logo.png" target="images" />
     <file src="LICENSE.md" target="" />
   </files>
 </package>
