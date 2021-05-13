@@ -22,7 +22,7 @@
     <summary>nanoFramework.System.Collections assembly for nanoFramework C# projects</summary>
     <tags>nanoFramework C# csharp netmf netnf System.Collections</tags>
     <dependencies>
-      <dependency id="nanoFramework.CoreLibrary" version="1.10.3-preview.20" />
+      <dependency id="nanoFramework.CoreLibrary" version="1.10.4-preview.4" />
     </dependencies>
   </metadata>
   <files>
