@@ -2,7 +2,15 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/nanoFramework.System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/nanoFramework.System.Collections/compare/v1.2.0-preview.49...HEAD)
+[Full Changelog](https://github.com/nanoframework/nanoFramework.System.Collections/compare/v1.2.0-preview.51...HEAD)
+
+**Documentation and other chores:**
+
+- Update 1 nuget dependencies [\#42](https://github.com/nanoframework/nanoFramework.System.Collections/pull/42)
+
+## [v1.2.0-preview.51](https://github.com/nanoframework/nanoFramework.System.Collections/tree/v1.2.0-preview.51) (2021-05-19)
+
+[Full Changelog](https://github.com/nanoframework/nanoFramework.System.Collections/compare/v1.2.0-preview.49...v1.2.0-preview.51)
 
 **Documentation and other chores:**
 
