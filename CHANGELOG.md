@@ -2,7 +2,24 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.55...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.65...HEAD)
+
+**Documentation and other chores:**
+
+- Update 2 NuGet dependencies [\#50](https://github.com/nanoframework/System.Collections/pull/50)
+- Bumps nanoFramework.CoreLibrary from 1.10.5-preview.4 to 1.10.5-preview.10 [\#49](https://github.com/nanoframework/System.Collections/pull/49)
+
+## [v1.2.0-preview.65](https://github.com/nanoframework/System.Collections/tree/v1.2.0-preview.65) (2021-06-03)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.62...v1.2.0-preview.65)
+
+**Documentation and other chores:**
+
+- Bumps nanoFramework.CoreLibrary from 1.10.5-preview.4 to 1.10.5-preview.10 [\#48](https://github.com/nanoframework/System.Collections/pull/48)
+
+## [v1.2.0-preview.62](https://github.com/nanoframework/System.Collections/tree/v1.2.0-preview.62) (2021-06-01)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.55...v1.2.0-preview.62)
 
 **Documentation and other chores:**
 
