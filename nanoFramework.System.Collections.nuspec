@@ -22,7 +22,7 @@ This package requires a target with System.Collections v$nativeVersion$ (checksu
     <summary>nanoFramework.System.Collections assembly for nanoFramework C# projects</summary>
     <tags>nanoFramework C# csharp netmf netnf System.Collections</tags>
     <dependencies>
-      <dependency id="nanoFramework.CoreLibrary" version="1.10.5-preview.13" />
+      <dependency id="nanoFramework.CoreLibrary" version="1.10.5-preview.18" />
     </dependencies>
   </metadata>
   <files>
