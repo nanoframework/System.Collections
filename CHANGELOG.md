@@ -2,7 +2,16 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.65...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.67...HEAD)
+
+**Documentation and other chores:**
+
+- Bumps nanoFramework.CoreLibrary from 1.10.5-preview.13 to 1.10.5-preview.18 [\#52](https://github.com/nanoframework/System.Collections/pull/52)
+- Update 1 nuget dependencies [\#51](https://github.com/nanoframework/System.Collections/pull/51)
+
+## [v1.2.0-preview.67](https://github.com/nanoframework/System.Collections/tree/v1.2.0-preview.67) (2021-06-07)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.65...v1.2.0-preview.67)
 
 **Documentation and other chores:**
 
