@@ -12,13 +12,11 @@
     </releaseNotes>
     <developmentDependency>false</developmentDependency>
     <projectUrl>https://github.com/nanoframework/System.Collections</projectUrl>
-    <iconUrl>https://secure.gravatar.com/avatar/97d0e092247f0716db6d4b47b7d1d1ad</iconUrl>
     <icon>images\nf-logo.png</icon>
     <repository type="git" url="https://github.com/nanoframework/System.Collections" commit="$commit$" />
     <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
     <description>
-      This package includes the .NET System.Collections assembly for nanoFramework C# projects.
-This package requires a target with System.Collections v$nativeVersion$ (checksum $checksum$).</description>
+      This package includes the .NET System.Collections assembly for .NET nanoFramework C# projects.&#10;This package requires a target with System.Collections v$nativeVersion$ (checksum $checksum$).</description>
     <summary>nanoFramework.System.Collections assembly for nanoFramework C# projects</summary>
     <tags>nanoFramework C# csharp netmf netnf System.Collections</tags>
     <dependencies>
