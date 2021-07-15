@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2017 The nanoFramework project contributors
+// Copyright (c) .NET Foundation and Contributors
 // Portions Copyright (c) Microsoft Corporation.  All rights reserved.
 // See LICENSE file in the project root for full license information.
 //
@@ -171,19 +171,20 @@ namespace System.Collections
 #pragma warning restore S112 // General exceptions should never be thrown
             }
 
+            int j = 0;
+            int len = array.Length;
+
             for (int i = index; i < _numberOfBuckets; i++)
             {
-                var j = 0;
-
-                for (Entry cur = _buckets[i]; cur != null && j < array.Length; cur = cur.next)
+                for (Entry cur = _buckets[i]; cur != null && j < len; cur = cur.next)
                 {
                     if (type == EnumeratorType.KEY)
                     {
-                        array.SetByIndex(j, cur.key);
+                        ((IList)array)[j] = cur.key;
                     }
                     else
                     {
-                        array.SetByIndex(j, cur.value);
+                        ((IList)array)[j] = cur.value;
                     }
 
                     j++;
@@ -268,13 +269,14 @@ namespace System.Collections
                 throw new IndexOutOfRangeException("index");
 #pragma warning restore S112 // General exceptions should never be thrown
 
+            int j = 0;
+            int len = array.Length;
+
             for (int i = index; i < _buckets.Length; i++)
             {
-                var j = 0;
-
-                for (Entry cur = _buckets[i]; cur != null && j < array.Length; cur = cur.next)
+                for (Entry cur = _buckets[i]; cur != null && j < len; cur = cur.next)
                 {
-                    array.SetByIndex(j, new DictionaryEntry(cur.key, cur.value));
+                    ((IList)array)[j] = new DictionaryEntry(cur.key, cur.value);
                     j++;
                 }
             }

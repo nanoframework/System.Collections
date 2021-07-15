@@ -1,0 +1,65 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.System.Collections", "nanoFramework.System.Collections\nanoFramework.System.Collections.nfproj", "{ADEC287F-9989-40D3-A560-D918B90FFB03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BBE482A2-86B3-4727-84CF-A53319F301CE}"
+	ProjectSection(SolutionItems) = preProject
+		nanoFramework.System.Collections.nuspec = nanoFramework.System.Collections.nuspec
+		NuGet.Config = NuGet.Config
+		version.json = version.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{19416EDD-5F30-4B79-B69F-E5DB8FEC4F60}"
+EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "HashtableTests", "Tests\HashtableTests\HashtableTests.nfproj", "{0F95CFBD-AF48-4645-93B1-0305D6D01F60}"
+EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "QueueTests", "Tests\QueueTests\QueueTests.nfproj", "{B63451E5-198D-49FC-95D5-FE0307D8542A}"
+EndProject
+Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "StackTests", "Tests\StackTests\StackTests.nfproj", "{988826B2-A0BB-481D-A357-078B6A0DD0D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADEC287F-9989-40D3-A560-D918B90FFB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEC287F-9989-40D3-A560-D918B90FFB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEC287F-9989-40D3-A560-D918B90FFB03}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{ADEC287F-9989-40D3-A560-D918B90FFB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEC287F-9989-40D3-A560-D918B90FFB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEC287F-9989-40D3-A560-D918B90FFB03}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B63451E5-198D-49FC-95D5-FE0307D8542A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B63451E5-198D-49FC-95D5-FE0307D8542A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B63451E5-198D-49FC-95D5-FE0307D8542A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B63451E5-198D-49FC-95D5-FE0307D8542A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B63451E5-198D-49FC-95D5-FE0307D8542A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B63451E5-198D-49FC-95D5-FE0307D8542A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F95CFBD-AF48-4645-93B1-0305D6D01F60} = {19416EDD-5F30-4B79-B69F-E5DB8FEC4F60}
+		{B63451E5-198D-49FC-95D5-FE0307D8542A} = {19416EDD-5F30-4B79-B69F-E5DB8FEC4F60}
+		{988826B2-A0BB-481D-A357-078B6A0DD0D9} = {19416EDD-5F30-4B79-B69F-E5DB8FEC4F60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20AE6EDF-F6B9-47AD-916F-338A69E03CCA}
+	EndGlobalSection
+EndGlobal

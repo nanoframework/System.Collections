@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("nanoFramework.System.Collections")]
 [assembly: AssemblyCompany("nanoFramework Contributors")]
 [assembly: AssemblyProduct("nanoFramework.System.Collections")]
-[assembly: AssemblyCopyright("Copyright © nanoFramework Contributors 2019")]
+[assembly: AssemblyCopyright("Copyright (c) .NET Foundation and Contributors")]
 
 ////////////////////////////////////////////////////////////////
 // update this whenever the native assembly signature changes //
