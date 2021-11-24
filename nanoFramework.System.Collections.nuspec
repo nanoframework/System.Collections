@@ -4,21 +4,19 @@
     <id>nanoFramework.System.Collections</id>
     <version>$version$</version>
     <title>nanoFramework.System.Collections</title>
-    <authors>.NET nanoFramework project contributors</authors>
-    <owners>.NET nanoFramework project contributors,dotnetfoundation</owners>
+    <authors>nanoFramework project contributors</authors>
+    <owners>.nanoFramework,dotnetfoundation</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="file">LICENSE.md</license>
     <releaseNotes>
     </releaseNotes>
+    <readme>docs\README.md</readme>
     <developmentDependency>false</developmentDependency>
     <projectUrl>https://github.com/nanoframework/System.Collections</projectUrl>
     <icon>images\nf-logo.png</icon>
     <repository type="git" url="https://github.com/nanoframework/System.Collections" commit="$commit$" />
     <copyright>Copyright (c) .NET Foundation and Contributors</copyright>
-    <description>
-      This package includes the .NET System.Collections assembly for .NET nanoFramework C# projects.
-This package requires a target with System.Collections v$nativeVersion$ (checksum $checksum$).</description>
-    <summary>nanoFramework.System.Collections assembly for nanoFramework C# projects</summary>
+    <description>This package includes the .NET System.Collections assembly for .NET nanoFramework C# projects.&#10;This package requires a target with System.Collections v$nativeVersion$ (checksum $checksum$).</description>
     <tags>nanoFramework C# csharp netmf netnf System.Collections</tags>
     <dependencies>
       <dependency id="nanoFramework.CoreLibrary" version="1.10.5" />
@@ -31,6 +29,7 @@ This package requires a target with System.Collections v$nativeVersion$ (checksu
     <file src="nanoFramework.System.Collections\bin\Release\nanoFramework.System.Collections.pe" target="lib\nanoFramework.System.Collections.pe" />
     <file src="nanoFramework.System.Collections\bin\Release\nanoFramework.System.Collections.xml" target="lib\nanoFramework.System.Collections.xml" />
     <file src="assets\readme.txt" target="" />
+    <file src="README.md" target="docs\" />
     <file src="assets\nf-logo.png" target="images" />
     <file src="LICENSE.md" target="" />
   </files>
