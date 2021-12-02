@@ -1,7 +1,5 @@
 # Changelog
 
-## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
-
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.3.0-preview.12...HEAD)
 
 **Documentation and other chores:**
