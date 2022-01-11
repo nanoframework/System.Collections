@@ -39,11 +39,9 @@ steps:
     unitTestRunsettings: '$(System.DefaultWorkingDirectory)\Tests\HashtableTests\nano.runsettings'
 
 # update dependencies
-- task: UpdatenFDependencies@1
-  condition: or( and( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v') ), and( succeeded(), contains(variables['Build.SourceVersionMessage'], '***UPDATE_DEPENDENTS***') ), eq(variables['UPDATE_DEPENDENTS'], 'true') )
-  displayName: Update dependent class libs
-  inputs:
-    gitHubToken: $(GitHubToken)
+# update dependents
+- template: azure-pipelines-templates/update-dependents.yml@templates  
+  parameters:
     repositoriesToUpdate: |
       System.Net.Http
       nanoFramework.Json
