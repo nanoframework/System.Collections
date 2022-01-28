@@ -46,7 +46,7 @@ steps:
       System.Net.Http
       nanoFramework.Json
       nanoFramework.Graphics
-      paho.mqtt.m2mqtt
+      nanoFramework.m2mqtt
       amqpnetlite
 
 # step from template @ nf-tools repo
