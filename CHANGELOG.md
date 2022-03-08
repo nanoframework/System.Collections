@@ -2,7 +2,19 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.14...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.16...HEAD)
+
+**Implemented enhancements:**
+
+- Rework HashTable implementation [\#81](https://github.com/nanoframework/System.Collections/pull/81)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#80](https://github.com/nanoframework/System.Collections/pull/80)
+
+## [v1.4.0-preview.16](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.16) (2022-02-17)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.14...v1.4.0-preview.16)
 
 **Documentation and other chores:**
 
