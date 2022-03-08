@@ -665,6 +665,18 @@ namespace NFUnitTests
             Assert.True(countOfKeysFound == t.Count, $"Keys count don't match. Hashtable has {t.Count} and was expecting {countOfKeysFound}");
         }
 
+        [TestMethod]
+        public void Hashtable_InsertNullKey()
+        {
+            Hashtable ht = CreateIntHashtable(10);
+
+            Assert.Throws(typeof(ArgumentNullException), () =>
+            {
+                ht.Add(null, 9999);
+
+            }, "No exception was thrown when adding a NULL key.");
+        }
+
         #region helper classes and methods
 
         /// <summary>
