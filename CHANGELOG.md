@@ -2,7 +2,16 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.16...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.21...HEAD)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#83](https://github.com/nanoframework/System.Collections/pull/83)
+- Add Unit Test for inserting null key [\#82](https://github.com/nanoframework/System.Collections/pull/82)
+
+## [v1.4.0-preview.21](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.21) (2022-03-08)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.16...v1.4.0-preview.21)
 
 **Implemented enhancements:**
 
