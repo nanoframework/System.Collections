@@ -1,6 +1,6 @@
 # Changelog
 
-## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
+## [v1.3.0](https://github.com/nanoframework/System.Collections/tree/v1.3.0) (2021-12-03)
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.27...HEAD)
 
@@ -84,6 +84,10 @@
 ## [v1.3.0](https://github.com/nanoframework/System.Collections/tree/v1.3.0) (2021-12-02)
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.3.0-preview.14...v1.3.0)
+
+**Documentation and other chores:**
+
+- Update 1 nuget dependencies [\#70](https://github.com/nanoframework/System.Collections/pull/70)
 
 ## [v1.3.0-preview.14](https://github.com/nanoframework/System.Collections/tree/v1.3.0-preview.14) (2021-12-02)
 
