@@ -1,10 +1,28 @@
+# Copyright (c) .NET Foundation and Contributors
+# See LICENSE file in the project root for full license information.
+
 trigger:
   branches:
-    include: [main, develop, "release-*" ]
+    include:
+      - main
+      - develop
+      - release-*
   paths:
-    exclude: [README.md, LICENSE.md, NuGet.Config, .github_changelog_generator, .gitignore]
+    exclude:
+      - .github_changelog_generator
+      - .gitignore
+      - CHANGELOG.md
+      - CODE_OF_CONDUCT.md
+      - LICENSE.md
+      - README.md
+      - NuGet.Config
+      - assets/*
+      - config/*
+      - .github/*
+
   tags:
-    include: ["v*"]
+    include: 
+      - v*
 
 # PR always trigger build
 pr:
@@ -19,7 +37,7 @@ resources:
       endpoint: nanoframework
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-latest'
 
 variables:
   DOTNET_NOLOGO: true
@@ -39,16 +57,14 @@ steps:
     unitTestRunsettings: '$(System.DefaultWorkingDirectory)\Tests\HashtableTests\nano.runsettings'
 
 # update dependencies
-- task: UpdatenFDependencies@1
-  condition: or( and( succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v') ), and( succeeded(), contains(variables['Build.SourceVersionMessage'], '***UPDATE_DEPENDENTS***') ), eq(variables['UPDATE_DEPENDENTS'], 'true') )
-  displayName: Update dependent class libs
-  inputs:
-    gitHubToken: $(GitHubToken)
+# update dependents
+- template: azure-pipelines-templates/update-dependents.yml@templates  
+  parameters:
     repositoriesToUpdate: |
       System.Net.Http
       nanoFramework.Json
       nanoFramework.Graphics
-      paho.mqtt.m2mqtt
+      nanoFramework.m2mqtt
       amqpnetlite
 
 # step from template @ nf-tools repo

@@ -2,6 +2,87 @@
 
 ## [v1.3.0](https://github.com/nanoframework/System.Collections/tree/v1.3.0) (2021-12-03)
 
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.27...HEAD)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#87](https://github.com/nanoframework/System.Collections/pull/87)
+- Update 1 NuGet dependencies [\#86](https://github.com/nanoframework/System.Collections/pull/86)
+
+## [v1.4.0-preview.27](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.27) (2022-03-17)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.24...v1.4.0-preview.27)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#85](https://github.com/nanoframework/System.Collections/pull/85)
+- Update 1 NuGet dependencies [\#84](https://github.com/nanoframework/System.Collections/pull/84)
+
+## [v1.4.0-preview.24](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.24) (2022-03-14)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.21...v1.4.0-preview.24)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#83](https://github.com/nanoframework/System.Collections/pull/83)
+- Add Unit Test for inserting null key [\#82](https://github.com/nanoframework/System.Collections/pull/82)
+
+## [v1.4.0-preview.21](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.21) (2022-03-08)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.16...v1.4.0-preview.21)
+
+**Implemented enhancements:**
+
+- Rework HashTable implementation [\#81](https://github.com/nanoframework/System.Collections/pull/81)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#80](https://github.com/nanoframework/System.Collections/pull/80)
+
+## [v1.4.0-preview.16](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.16) (2022-02-17)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.14...v1.4.0-preview.16)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#79](https://github.com/nanoframework/System.Collections/pull/79)
+
+## [v1.4.0-preview.14](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.14) (2022-02-04)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.12...v1.4.0-preview.14)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#78](https://github.com/nanoframework/System.Collections/pull/78)
+
+## [v1.4.0-preview.12](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.12) (2022-01-28)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.9...v1.4.0-preview.12)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#77](https://github.com/nanoframework/System.Collections/pull/77)
+
+## [v1.4.0-preview.9](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.9) (2022-01-28)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.7...v1.4.0-preview.9)
+
+**Documentation and other chores:**
+
+- Update 1 NuGet dependencies [\#76](https://github.com/nanoframework/System.Collections/pull/76)
+
+## [v1.4.0-preview.7](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.7) (2022-01-21)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.3.0...v1.4.0-preview.7)
+
+**Documentation and other chores:**
+
+- Fix Unit Tests [\#75](https://github.com/nanoframework/System.Collections/pull/75)
+- Update 2 NuGet dependencies [\#74](https://github.com/nanoframework/System.Collections/pull/74)
+- Update 1 nuget dependencies [\#70](https://github.com/nanoframework/System.Collections/pull/70)
+
+## [v1.3.0](https://github.com/nanoframework/System.Collections/tree/v1.3.0) (2021-12-02)
+
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.3.0-preview.14...v1.3.0)
 
 **Documentation and other chores:**

@@ -37,9 +37,17 @@
     <NFMDP_PE_ExcludeClassByName Include="ThisAssembly">
       <InProject>false</InProject>
     </NFMDP_PE_ExcludeClassByName>
+    <NFMDP_PE_ExcludeClassByName Include="DictionaryEntry">
+      <InProject>false</InProject>
+    </NFMDP_PE_ExcludeClassByName>
+    <NFMDP_PE_ExcludeClassByName Include="IDictionaryEnumerator">
+      <InProject>false</InProject>
+    </NFMDP_PE_ExcludeClassByName>
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="Collections\Hashtable.Bucket.cs" />
+    <Compile Include="Collections\IDictionaryEnumerator.cs" />
     <Compile Include="Collections\DictionaryEntry.cs" />
     <Compile Include="Collections\Hashtable.cs" />
     <Compile Include="Collections\IDictionary.cs" />
@@ -52,8 +60,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="mscorlib, Version=1.11.7.2, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\packages\nanoFramework.CoreLibrary.1.11.7\lib\mscorlib.dll</HintPath>
+    <Reference Include="mscorlib, Version=1.12.0.4, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+      <HintPath>..\packages\nanoFramework.CoreLibrary.1.12.0\lib\mscorlib.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

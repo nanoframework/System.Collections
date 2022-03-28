@@ -42,43 +42,43 @@ namespace NFUnitTests
 
                 Assert.True(19 == stack.Count, "Stack.Count is incorrect");
 
-                Assert.True(TestObjects.en.Equals(stack.Peek()));
+                Assert.True(TestObjects.en.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.en.Equals(stack.Pop()));
-                Assert.True(TestObjects.nul.Equals(stack.Peek()));
+                Assert.True(TestObjects.nul.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.nul.Equals(stack.Pop()));
-                Assert.True(TestObjects.o.Equals(stack.Peek()));
+                Assert.True(TestObjects.o.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.o.Equals(stack.Pop()));
-                Assert.True(TestObjects.cl.Equals(stack.Peek()));
+                Assert.True(TestObjects.cl.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.cl.Equals(stack.Pop()));
-                Assert.True(TestObjects.st.Equals(stack.Peek()));
+                Assert.True(TestObjects.st.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.st.Equals(stack.Pop()));
-                Assert.True(TestObjects.ts.Equals(stack.Peek()));
+                Assert.True(TestObjects.ts.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.ts.Equals(stack.Pop()));
-                Assert.True(TestObjects.dt.Equals(stack.Peek()));
+                Assert.True(TestObjects.dt.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.dt.Equals(stack.Pop())); 
-                Assert.True(TestObjects.str.Equals(stack.Peek()));
+                Assert.True(TestObjects.str.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.str.Equals(stack.Pop()));
-                Assert.True(TestObjects.c2.Equals(stack.Peek()));
+                Assert.True(TestObjects.c2.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.c2.Equals(stack.Pop()));
-                Assert.True(TestObjects.f8.Equals(stack.Peek()));
+                Assert.True(TestObjects.f8.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.f8.Equals(stack.Pop()));
-                Assert.True(TestObjects.f4.Equals(stack.Peek()));
+                Assert.True(TestObjects.f4.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.f4.Equals(stack.Pop()));
-                Assert.True(TestObjects.s8.Equals(stack.Peek()));
+                Assert.True(TestObjects.s8.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.s8.Equals(stack.Pop()));
-                Assert.True(TestObjects.u8.Equals(stack.Peek()));
+                Assert.True(TestObjects.u8.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.u8.Equals(stack.Pop()));
-                Assert.True(TestObjects.s4.Equals(stack.Peek()));
+                Assert.True(TestObjects.s4.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.s4.Equals(stack.Pop()));
-                Assert.True(TestObjects.u4.Equals(stack.Peek()));
+                Assert.True(TestObjects.u4.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.u4.Equals(stack.Pop()));
-                Assert.True(TestObjects.s2.Equals(stack.Peek()));
+                Assert.True(TestObjects.s2.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.s2.Equals(stack.Pop()));
-                Assert.True(TestObjects.u2.Equals(stack.Peek()));
+                Assert.True(TestObjects.u2.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.u2.Equals(stack.Pop()));
-                Assert.True(TestObjects.s1.Equals(stack.Peek()));
+                Assert.True(TestObjects.s1.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.s1.Equals(stack.Pop()));
-                Assert.True(TestObjects.u1.Equals(stack.Peek()));
+                Assert.True(TestObjects.u1.Equals(stack.Peek()), " Peek failed");
                 Assert.True(TestObjects.u1.Equals(stack.Pop()));
 
                 Assert.True(0 == stack.Count, "Stack.Count is incorrect");
@@ -107,7 +107,7 @@ namespace NFUnitTests
 
                 for (int i = 7; i >= 4; i--)
                 {
-                    Assert.True(i.Equals(stack.Peek()));
+                    Assert.True(i.Equals(stack.Peek()), " Peek failed");
                     Assert.True(i.Equals(stack.Pop()));
                 }
 
@@ -126,7 +126,7 @@ namespace NFUnitTests
 
                 for (int i = 11; i >= 10; i--)
                 {
-                    Assert.True(i.Equals(stack.Peek()));
+                    Assert.True(i.Equals(stack.Peek()), " Peek failed");
                     Assert.True(i.Equals(stack.Pop()));
                 }
 
@@ -145,17 +145,17 @@ namespace NFUnitTests
 
                 for (int i = 15; i >= 12; i--)
                 {
-                    Assert.True(i.Equals(stack.Peek()));
+                    Assert.True(i.Equals(stack.Peek()), " Peek failed");
                     Assert.True(i.Equals(stack.Pop()));
                 }
                 for (int i = 9; i >= 8; i--)
                 {
-                    Assert.True(i.Equals(stack.Peek()));
+                    Assert.True(i.Equals(stack.Peek()), " Peek failed");
                     Assert.True(i.Equals(stack.Pop()));
                 }
                 for (int i = 3; i >= 0; i--)
                 {
-                    Assert.True(i.Equals(stack.Peek()));
+                    Assert.True(i.Equals(stack.Peek()), " Peek failed");
                     Assert.True(i.Equals(stack.Pop()));
                 }
 

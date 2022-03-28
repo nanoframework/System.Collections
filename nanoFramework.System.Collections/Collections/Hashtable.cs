@@ -4,207 +4,192 @@
 // See LICENSE file in the project root for full license information.
 //
 
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
 namespace System.Collections
 {
     /// <summary>
-    /// HashTable is an Associative Container.
-    /// Created in March 2010.
-    /// by Eric Harlow.
+    /// Initializes a new instance of the <see cref="Hashtable"/> class.
     /// </summary>
+    /// <remarks>
+    /// The implementation for .NET nanoFramework, unlike the full .NET, doesn't support collisions so every key has to be truly unique through it's <see cref="object.GetHashCode"/>.
+    /// </remarks>
     public class Hashtable : ICloneable, IDictionary
     {
-        private Entry[] _buckets;
-        private int _numberOfBuckets;
+        private const int InitialSize = 3;
+        private const float DefaultLoadFactor = 1.0f;
+        
+        private readonly Bucket[] _buckets;
+        private readonly int _loadsize;
+        private float _loadFactor;
         private int _count;
-        private int _loadFactor;
-        private int _maxLoadFactor;
-        private double _growthFactor;
-        private const int _defaultCapacity = 4;
-        private const int _defaultLoadFactor = 2;
+        private int _version;
+
+        // this is used as the lock object 
+        // a lock is required because multiple threads can access the Hashtable
+        private static readonly object _syncLock = new();
 
         /// <summary>
-        /// Initializes a new, empty instance of the Hashtable class using the default initial capacity and load factor.
+        /// Initializes a new, empty instance of the <see cref="Hashtable"/> class using the default initial capacity, load factor, hash code provider and comparer.
         /// </summary>
-        public Hashtable()
-        {
-            InitializeHashTable(_defaultCapacity, _defaultLoadFactor);
-        }
+        /// <remarks>
+        /// <para>
+        /// A hash table's capacity is used to calculate the optimal number of hash table buckets based on the load factor. Capacity is automatically increased as required.
+        /// </para>
+        /// <para>
+        /// The load factor is the maximum ratio of elements to buckets. A smaller load factor means faster lookup at the cost of increased memory consumption.
+        /// </para>
+        /// <para>
+        /// When the actual load factor reaches the specified load factor, the number of buckets is automatically increased to the smallest prime number that is larger than twice the current number of buckets.
+        /// </para>
+        /// <para>
+        /// The hash code provider dispenses hash codes for keys in the <see cref="Hashtable"/> object. The default hash code provider is the key's implementation of <see cref="object.GetHashCode"/>.
+        /// </para>
+        /// The .NET nanoFramework implementation uses the <see cref="object.Equals(object)"/> to perform comparisons of the key's.
+        /// </remarks>
+        public Hashtable() : this(InitialSize, DefaultLoadFactor) { }
 
         /// <summary>
-        /// Initializes a new, empty instance of the Hashtable class using the specified initial capacity, 
-        /// and the default load factor.
+        /// Initializes a new, empty instance of the <see cref="Hashtable"/> class using the specified initial capacity and load factor, and the default hash code provider and comparer.
         /// </summary>
-        /// <param name="capacity">The initial capacity of the HashTable</param>
-        public Hashtable(int capacity)
-        {
-            InitializeHashTable(capacity, _defaultLoadFactor);
-        }
+        /// <param name="capacity">The approximate number of elements that the <see cref="Hashtable"/> object can initially contain.</param>
+        /// <exception cref="ArgumentException"><paramref name="capacity"/> is causing an overflow.</exception>
+        /// <remarks>
+        /// <para>
+        /// Specifying the initial capacity eliminates the need to perform a number of resizing operations while adding elements to the <see cref="Hashtable"/> object. Capacity is automatically increased as required based on the load factor.
+        /// </para>
+        /// <para>
+        /// The load factor is the maximum ratio of elements to buckets. A smaller load factor means faster lookup at the cost of increased memory consumption.
+        /// </para>
+        /// <para>
+        /// When the actual load factor reaches the specified load factor, the number of buckets is automatically increased to the smallest prime number that is larger than twice the current number of buckets.
+        /// </para>
+        /// <para>
+        /// The hash code provider dispenses hash codes for keys in the <see cref="Hashtable"/> object. The default hash code provider is the key's implementation of <see cref="object.GetHashCode"/>.
+        /// </para>
+        /// The .NET nanoFramework implementation uses the <see cref="object.Equals(object)"/> to perform comparisons of the key's.
+        /// </remarks>
+        public Hashtable(int capacity) : this(capacity, DefaultLoadFactor) { }
 
         /// <summary>
-        /// Initializes a new, empty instance of the Hashtable class using the specified initial capacity, 
+        /// Initializes a new, empty instance of the <see cref="Hashtable"/> class using the specified initial capacity and load factor, and the default hash code provider and comparer.
         /// load factor.
         /// </summary>
-        /// <param name="capacity">The initial capacity of the HashTable</param>
-        /// <param name="maxLoadFactor">The load factor to cause a rehash</param>
-        public Hashtable(int capacity, int maxLoadFactor)
+        /// <param name="capacity">The approximate number of elements that the <see cref="Hashtable"/> object can initially contain.</param>
+        /// <param name="loadFactor">A number in the range from 0.1 through 1.0 that is multiplied by the default value which provides the best performance. The result is the maximum ratio of elements to buckets.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <para>
+        /// <paramref name="capacity"/> is less than zero.
+        /// </para>
+        /// <para>
+        /// -or>
+        /// </para>
+        /// <para>
+        /// <paramref name="loadFactor"/> is less than 0.1.
+        /// </para>
+        /// <para>
+        /// -or>
+        /// </para>
+        /// <para>
+        /// <paramref name="loadFactor"/> is greater than 1.0.
+        /// </para>
+        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="capacity"/> is causing an overflow.</exception>
+        /// <remarks>
+        /// <para>
+        /// Specifying the initial capacity eliminates the need to perform a number of resizing operations while adding elements to the <see cref="Hashtable"/> object. Capacity is automatically increased as required based on the load factor.
+        /// </para>
+        /// <para>
+        /// The load factor is the maximum ratio of elements to buckets. A smaller load factor means faster lookup at the cost of increased memory consumption.
+        /// </para>
+        /// <para>
+        /// When the actual load factor reaches the specified load factor, the number of buckets is automatically increased to the smallest prime number that is larger than twice the current number of buckets.
+        /// </para>
+        /// <para>
+        /// The hash code provider dispenses hash codes for keys in the <see cref="Hashtable"/> object. The default hash code provider is the key's implementation of <see cref="object.GetHashCode"/>.
+        /// </para>
+        /// The .NET nanoFramework implementation uses the <see cref="object.Equals(object)"/> to perform comparisons of the key's.
+        /// </remarks>
+        public Hashtable(int capacity, float loadFactor)
         {
-            InitializeHashTable(capacity, maxLoadFactor);
-        }
-
-        //initialize attributes
-        private void InitializeHashTable(int capacity, int maxLoadFactor)
-        {
-            _buckets = new Entry[capacity];
-            _numberOfBuckets = capacity;
-            _maxLoadFactor = maxLoadFactor;
-            _growthFactor = 2;
-        }
-
-#pragma warning disable S2292 // Trivial properties should be auto-implemented
-        /// <summary>
-        /// MaxLoadFactor Property is the value used to trigger a rehash.
-        /// Default value is 2.
-        /// A higher number can decrease lookup performance for large collections.
-        /// While a value of 1 maintains a constant time complexity at the cost of increased memory requirements.   
-        /// </summary>
-        public int MaxLoadFactor
-#pragma warning restore S2292 // Trivial properties should be auto-implemented
-        {
-            get { return _maxLoadFactor; }
-            set { _maxLoadFactor = value; }
-        }
-
-#pragma warning disable S2292 // Trivial properties should be auto-implemented
-        /// <summary>
-        /// GrowthFactor Property is a multiplier to increase the HashTable size by during a rehash.
-        /// Default value is 2.
-        /// </summary>
-        public double GrowthFactor
-#pragma warning restore S2292 // Trivial properties should be auto-implemented
-        {
-            get { return _growthFactor; }
-            set { _growthFactor = value; }
-        }
-
-        //adding for internal purposes
-        private void Add(ref Entry[] buckets, object key, object value, bool overwrite)
-        {
-            var whichBucket = Hash(key, _numberOfBuckets);
-            var match = EntryForKey(key, buckets[whichBucket]);
-
-            if (match != null && overwrite)
-            { 
-                //i.e. already exists in table
-                match.value = value;
-                return;
-            }
-            else if ((match != null && !overwrite))
+            if (capacity < 0)
             {
-                throw new ArgumentException("key exists");
-            }
-            else
-            {            // insert at front
-                var newOne = new Entry(key, value, ref buckets[whichBucket]);
-                buckets[whichBucket] = newOne;
-                _count++;
+                throw new ArgumentOutOfRangeException();
             }
 
-            _loadFactor = _count / _numberOfBuckets;
-        }
-
-        // Hash function.
-        private int Hash(object key, int numOfBuckets)
-        {
-            var hashcode = key.GetHashCode();
-
-            if (hashcode < 0)
+            if (!(loadFactor >= 0.1f && loadFactor <= 1.0f))
             {
-                // don't know how to mod with a negative number
-                hashcode = hashcode * -1;
+                throw new ArgumentOutOfRangeException();
             }
 
-            return hashcode % numOfBuckets;
-        }
+            // from full .NET seems that .72 is the optimal load factor
+            _loadFactor = 0.72f * loadFactor;
 
-        //looks up value in bucket
-        private Entry EntryForKey(object key, Entry head)
-        {
-            for (Entry cur = head; cur != null; cur = cur.next)
+            double rawsize = capacity / _loadFactor;
+            if (rawsize > int.MaxValue)
             {
-                if (cur.key.Equals(key))
-                {
-                    return cur;
-                }
+                throw new ArgumentException();
             }
 
-            return null;
-        }
+            // avoid awfully small sizes
+            int hashsize = (rawsize > InitialSize) ? GetPrimeNative((int)rawsize) : InitialSize;
+            _buckets = new Bucket[hashsize];
 
-        //Rehashes the table to reduce the load factor
-        private void Rehash(int newSize)
-        {
-            Entry[] newTable = new Entry[newSize];
-            _numberOfBuckets = newSize;
-            _count = 0;
+            _loadsize = (int)(_loadFactor * hashsize);
 
-            for (var i = 0; i < _buckets.Length; i++)
-            {
-                if (_buckets[i] != null)
-                {
-                    for (Entry cur = _buckets[i]; cur != null; cur = cur.next)
-                    {
-                        Add(ref newTable, cur.key, cur.value, false);
-                    }
-                }
-            }
-
-            _buckets = newTable;
-        }
-
-        //implementation for KeyCollection and ValueCollection copyTo method
-        private void CopyToCollection(Array array, int index, EnumeratorType type)
-        {
-            if (index < 0 && index > _numberOfBuckets)
-            {
-#pragma warning disable S112 // General exceptions should never be thrown
-                throw new IndexOutOfRangeException("index");
-#pragma warning restore S112 // General exceptions should never be thrown
-            }
-
-            int j = 0;
-            int len = array.Length;
-
-            for (int i = index; i < _numberOfBuckets; i++)
-            {
-                for (Entry cur = _buckets[i]; cur != null && j < len; cur = cur.next)
-                {
-                    if (type == EnumeratorType.KEY)
-                    {
-                        ((IList)array)[j] = cur.key;
-                    }
-                    else
-                    {
-                        ((IList)array)[j] = cur.value;
-                    }
-
-                    j++;
-                }
-            }
+            // Based on the current algorithm, loadsize must be less than hashsize.
+            Debug.Assert(_loadsize < hashsize, "Invalid hashtable loadsize!");
         }
 
         #region ICloneable Members
+
         /// <summary>
-        /// Make a new object which is a copy of the object instanced.
+        /// Creates a shallow copy of the <see cref="Hashtable"/>.
         /// </summary>
-        /// <returns>A new object that represents a clone of the object.</returns>
+        /// <returns>A shallow copy of the <see cref="Hashtable"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// A shallow copy of a collection copies only the elements of the collection, whether they are reference types or value types, but it does not copy the objects that the references refer to. The references in the new collection point to the same objects that the references in the original collection point to.
+        /// </para>
+        /// <para>
+        /// In contrast, a deep copy of a collection copies the elements and everything directly or indirectly referenced by the elements.
+        /// </para>
+        /// <para>
+        /// The <see cref="Hashtable"/> clone has the same count, the same capacity, the same hash provider, and the same comparer as the original <see cref="Hashtable"/>.
+        /// </para>
+        /// </remarks>
         public object Clone()
         {
-            var ht = new Hashtable();
-            ht.InitializeHashTable(_numberOfBuckets, _maxLoadFactor);
-            ht._count = _count;
-            ht._loadFactor = _loadFactor;
-            Array.Copy(_buckets, ht._buckets, _numberOfBuckets);
-            return ht;
+            lock (_syncLock)
+            {
+                Hashtable ht = new(_buckets.Length)
+                {
+                    _count = 0,
+                    _loadFactor = _loadFactor,
+                    _version = _version
+                };
+
+                int bucket = _buckets.Length;
+
+                while (bucket > 0)
+                {
+                    bucket--;
+
+                    // can only copy buckets that aren't null
+                    if (_buckets[bucket] != null)
+                    {
+                        object keyv = _buckets[bucket]._key;
+
+                        if (keyv != null)
+                        {
+                            ht[keyv] = _buckets[bucket]._value;
+                        }
+                    }
+                }
+
+                return ht;
+            }
         }
 
         #endregion ICloneable Members
@@ -212,13 +197,33 @@ namespace System.Collections
         #region IEnumerable Members
 
         /// <summary>
-        /// Returns an enumerator that iterates through a collection.
+        /// Returns an <see cref="IEnumerator"/> that iterates through the Hashtable.
         /// </summary>
-        /// <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
-        public IEnumerator GetEnumerator()
-        {
-            return new HashtableEnumerator(this, EnumeratorType.DE);
-        }
+        /// <returns>An <see cref="IEnumerator"/> for the <see cref="Hashtable"/>.</returns>
+        /// <remarks>
+        /// <para>
+        /// The <see langword="foreach"/> statement of the C# language (for each in Visual Basic) hides the complexity of the enumerators. Therefore, using <see langword="foreach"/> is recommended, instead of directly manipulating the enumerator.
+        /// </para>
+        /// <para>
+        /// Enumerators can be used to read the data in the collection, but they cannot be used to modify the underlying collection.
+        /// </para>
+        /// <para>
+        /// Initially, the enumerator is positioned before the first element in the collection. <see cref="IEnumerator.Reset"/> also brings the enumerator back to this position. At this position, <see cref="IEnumerator.Current"/> is undefined. Therefore, you must call <see cref="IEnumerator.MoveNext"/> to advance the enumerator to the first element of the collection before reading the value of <see cref="IEnumerator.Current"/>.
+        /// </para>
+        /// <para>
+        /// <see cref="IEnumerator.Current"/> returns the same object until either <see cref="IEnumerator.MoveNext"/> or <see cref="IEnumerator.Reset"/> is called. MoveNext sets Current to the next element.
+        /// </para>
+        /// <para>
+        /// If <see cref="IEnumerator.MoveNext"/> passes the end of the collection, the enumerator is positioned after the last element in the collection and <see cref="IEnumerator.MoveNext"/> returns false. When the enumerator is at this position, subsequent calls to <see cref="IEnumerator.MoveNext"/> also return false. If the last call to <see cref="IEnumerator.MoveNext"/> returned false, <see cref="IEnumerator.Current"/> is undefined. To set <see cref="IEnumerator.Current"/> to the first element of the collection again, you can call <see cref="IEnumerator.Reset"/> followed by <see cref="IEnumerator.MoveNext"/>.
+        /// </para>
+        /// <para>
+        /// An enumerator remains valid as long as the collection remains unchanged. If changes are made to the collection, such as adding, modifying, or deleting elements, the enumerator is irrecoverably invalidated and its behavior is undefined.
+        /// </para>
+        /// <para>
+        /// The enumerator does not have exclusive access to the collection; therefore, enumerating through a collection is intrinsically not a thread safe procedure. To guarantee thread safety during enumeration, you can lock the collection during the entire enumeration. To allow the collection to be accessed by multiple threads for reading and writing, you must implement your own synchronization.
+        /// </para>
+        /// </remarks>
+        public IEnumerator GetEnumerator() => new HashtableEnumerator(this, HashtableEnumerator.DictEntry);
 
         #endregion IEnumerable Members
 
@@ -230,10 +235,7 @@ namespace System.Collections
         /// <value>
         /// The number of elements contained in the ICollection.
         /// </value>
-        public int Count
-        {
-            get { return _count; }
-        }
+        public int Count => _count;
 
         /// <summary>
         /// Gets a value indicating whether access to the ICollection is synchronized (thread safe).
@@ -241,10 +243,7 @@ namespace System.Collections
         /// <value>
         /// true if access to the ICollection is synchronized (thread safe); otherwise, false.
         /// </value>
-        public bool IsSynchronized
-        {
-            get { return false; }
-        }
+        public bool IsSynchronized => false;
 
         /// <summary>
         /// Gets an object that can be used to synchronize access to the ICollection.
@@ -252,32 +251,57 @@ namespace System.Collections
         /// <value>
         /// An object that can be used to synchronize access to the ICollection.
         /// </value>
-        public object SyncRoot
-        {
-            get { return this; }
-        }
+        public object SyncRoot => this;
 
         /// <summary>
-        /// Copies the elements of the ICollection to an Array, starting at a particular Array index.
+        /// Copies the <see cref="Hashtable"/> elements to a one-dimensional <see cref="Array"/> instance at the specified index.
         /// </summary>
-        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from ICollection. The Array must have zero-based indexing.</param>
-        /// <param name="index">The zero-based index in array at which copying begins.</param>
-        public void CopyTo(Array array, int index)
+        /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the <see cref="DictionaryEntry"/> objects copied from <see cref="Hashtable"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="arrayIndex"/> is less than zero.</exception>
+        /// <exception cref="ArgumentException">The number of elements in the source <see cref="Hashtable"/> is greater than the available space from <paramref name="arrayIndex"/> to the end of the destination array.</exception>
+        /// <remarks>
+        /// <para>
+        /// The elements are copied to the <see cref="Array"/> in the same order in which the enumerator iterates through the <see cref="Hashtable"/>.
+        /// </para>
+        /// </remarks>
+        public void CopyTo(
+            Array array,
+            int arrayIndex)
         {
-            if (index < 0 && index > _buckets.Length)
-#pragma warning disable S112 // General exceptions should never be thrown
-                throw new IndexOutOfRangeException("index");
-#pragma warning restore S112 // General exceptions should never be thrown
-
-            int j = 0;
-            int len = array.Length;
-
-            for (int i = index; i < _buckets.Length; i++)
+            if (array == null)
             {
-                for (Entry cur = _buckets[i]; cur != null && j < len; cur = cur.next)
+                throw new ArgumentNullException();
+            }
+
+            if (arrayIndex < 0 && arrayIndex > _buckets.Length)
+            {
+#pragma warning disable S112 // General exceptions should never be thrown
+                throw new ArgumentOutOfRangeException();
+#pragma warning restore S112 // General exceptions should never be thrown
+            }
+
+            if (array.Length - arrayIndex < Count)
+            {
+#pragma warning disable S112 // General exceptions should never be thrown
+                throw new ArgumentException();
+#pragma warning restore S112 // General exceptions should never be thrown
+            }
+
+            lock (_syncLock)
+            {
+                int j = 0;
+
+                for (int i = _buckets.Length; --i >= 0;)
                 {
-                    ((IList)array)[j] = new DictionaryEntry(cur.key, cur.value);
-                    j++;
+                    object keyv = _buckets[i]._key;
+
+                    if ((keyv != null) && (keyv != _buckets))
+                    {
+                        ((IList)array)[j] = new DictionaryEntry(_buckets[i]._key, _buckets[i]._value);
+                        j++;
+                    }
                 }
             }
         }
@@ -286,55 +310,17 @@ namespace System.Collections
 
         #region IDictionary Members
 
-        /// <summary>
-        /// Gets a value indicating whether the IDictionary object is read-only.
-        /// </summary>
-        /// <value>
-        /// true if the IDictionary object is read-only; otherwise, false.
-        /// </value>
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        /// <inheritdoc/>
+        public bool IsReadOnly => false;
 
-        /// <summary>
-        /// Gets a value indicating whether the IDictionary object has a fixed size.
-        /// </summary>
-        /// <value>
-        /// true if the IDictionary object has a fixed size; otherwise, false.
-        /// </value>
-        public bool IsFixedSize
-        {
-            get { return false; }
-        }
+        /// <inheritdoc/>
+        public bool IsFixedSize => false;
 
-        /// <summary>
-        /// Gets an ICollection object containing the keys of the IDictionary object.
-        /// </summary>
-        /// <value>
-        /// An ICollection object containing the keys of the IDictionary object.
-        /// </value>
-        public ICollection Keys
-        {
-            get
-            {
-                return new KeyCollection(this);
-            }
-        }
+        /// <inheritdoc/>
+        public ICollection Keys => new KeyCollection(this);
 
-        /// <summary>
-        /// Gets an ICollection object containing the values in the IDictionary object.
-        /// </summary>
-        /// <value>
-        /// An ICollection object containing the values in the IDictionary object.
-        /// </value>
-        public ICollection Values
-        {
-            get
-            {
-                return new ValueCollection(this);
-            }
-        }
+        /// <inheritdoc/>
+        public ICollection Values => new ValueCollection(this);
 
         /// <summary>
         /// Gets or sets the element with the specified key.
@@ -343,333 +329,319 @@ namespace System.Collections
         /// <returns>The element with the specified key, or <see langword="null"/> if the key does not exist.</returns>
         public object this[object key]
         {
-            get
-            {
-                if (key == null)
-                {
-                    throw new ArgumentNullException("key is null");
-                }
+            get => GetNative(key);
 
-                var whichBucket = Hash(key, _numberOfBuckets);
-                var match = EntryForKey(key, _buckets[whichBucket]);
-
-                if (match != null)
-                {
-                    return match.value;
-                }
-
-                return null;
-            }
-            set
-            {
-                if (key == null)
-                {
-                    throw new ArgumentNullException("key is null");
-                }
-
-                Add(ref _buckets ,key,value,true);
-
-                if (_loadFactor >= _maxLoadFactor)
-                {
-                    Rehash((int)(_numberOfBuckets * _growthFactor));
-                }
-            }
+            set => InsertNative(key, value, false);
         }
 
         /// <summary>
-        /// Adds an element with the provided key and value to the IDictionary object.
+        /// Adds an element with the specified key and value into the <see cref="Hashtable"/>.
         /// </summary>
-        /// <param name="key">The Object to use as the key of the element to add.</param>
-        /// <param name="value">The Object to use as the value of the element to add.</param>
-        public void Add(object key, object value)
-        {
-            if (key == null) throw new ArgumentNullException("key is null");
-
-            Add(ref _buckets, key, value, false);
-
-            if (_loadFactor >= _maxLoadFactor)
-            {
-                Rehash((int)(_numberOfBuckets * _growthFactor));
-            }
-        }
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add. The value can be <see langword="null"/>.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="key"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException">An element with the same key already exists in the <see cref="Hashtable"/>.</exception>
+        public void Add(
+            object key,
+            object value) => InsertNative(key, value, true);
 
         /// <summary>
-        /// Removes all elements from the IDictionary object.
+        /// Removes all elements from the <see cref="Hashtable"/>.
         /// </summary>
-        public void Clear()
-        {
-            _buckets = new Entry[_defaultCapacity];
-            _numberOfBuckets = _defaultCapacity;
-            _loadFactor = 0;
-            _count = 0;
-        }
+        /// <remarks>
+        /// <see cref="Count"/> is set to zero, and references to other objects from elements of the collection are also released. The capacity remains unchanged.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void Clear();
 
         /// <summary>
-        /// Determines whether the IDictionary object contains an element with the specified key.
+        /// Determines whether the <see cref="Hashtable"/> contains a specific key.
         /// </summary>
-        /// <param name="key">The key to locate in the IDictionary object.</param>
-        /// <returns>true if the IDictionary contains an element with the key; otherwise, false.</returns>
-        public bool Contains(object key)
-        {
-            if (key == null)
-            {
-                throw new ArgumentNullException("key is null");
-            }
-
-            var whichBucket = Hash(key, _numberOfBuckets);
-            var match = EntryForKey(key, _buckets[whichBucket]);
-
-            if (match != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        /// <param name="key">The key to locate in the <see cref="Hashtable"/>.</param>
+        /// <returns><see langword="true"/> if the <see cref="Hashtable"/> contains an element with the specified key; otherwise, <see langword="false"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="key"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// <para>
+        /// <see cref="Contains"/> implements <see cref="IDictionary.Contains"/>.
+        /// </para>
+        /// <para>
+        /// This method uses the collection's objects' <see cref="object.Equals(object)"/> method on item to determine whether item exists.
+        /// </para>
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern bool Contains(object key);
 
         /// <summary>
-        /// Removes the element with the specified key from the IDictionary object.
+        /// Removes the element with the specified key from the <see cref="Hashtable"/>.
         /// </summary>
         /// <param name="key">The key of the element to remove.</param>
-        public void Remove(object key)
-        {
-            if (key == null)
-            {
-                throw new ArgumentNullException("key is null");
-            }
-
-            var whichBucket = Hash(key, _numberOfBuckets);
-            var match = EntryForKey(key, _buckets[whichBucket]);
-
-            //does entry exist?
-            if (match == null)
-            {
-                return;
-            }
-
-            //is entry at front?
-            if (_buckets[whichBucket] == match)
-            {
-                _buckets[whichBucket] = match.next;
-                _count--;
-                return;
-            }
-
-            //handle entry in middle and at the end
-            for (Entry cur = _buckets[whichBucket]; cur != null; cur = cur.next)
-            {
-                if (cur.next == match)
-                {
-                    cur.next = match.next;
-                    _count--;
-                    return;
-                }
-            }
-        }
+        /// <exception cref="ArgumentNullException"><paramref name="key"/> is <see langword="null"/>.</exception>
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public extern void Remove(object key);
 
         #endregion IDictionary Members
 
-        private class Entry
+        // Implements an enumerator for a hashtable. The enumerator uses the
+        // internal version number of the hashtable to ensure that no modifications
+        // are made to the hashtable while an enumeration is in progress.
+        private sealed class HashtableEnumerator : IDictionaryEnumerator, IEnumerator
         {
-            public Object key;
-            public Object value;
-            public Entry next;
+            private readonly Hashtable _hashtable;
+            private int _bucket;
+            private readonly int _version;
+            private bool _current;
+            private readonly int _getObjectRetType;
+            private object _currentKey;
+            private object _currentValue;
 
-            public Entry(object key, object value, ref Entry n)
+            internal const int Keys = 1;
+            internal const int Values = 2;
+            internal const int DictEntry = 3;
+
+            internal HashtableEnumerator(Hashtable hashtable, int getObjRetType)
             {
-                this.key = key;
-                this.value = value;
-                next = n;
-            }
-        }
-
-        private class HashtableEnumerator : IEnumerator
-        {
-            Hashtable ht;
-            Entry temp;
-            Int32 index = -1;
-            EnumeratorType returnType;
-
-            public HashtableEnumerator(Hashtable hashtable, EnumeratorType type)
-            {
-                ht = hashtable;
-                returnType = type;
+                _hashtable = hashtable;
+                _bucket = hashtable._buckets.Length;
+                _version = hashtable._version;
+                _current = false;
+                _getObjectRetType = getObjRetType;
             }
 
-            // Return the current item.
-            public Object Current
+            public object Clone() => MemberwiseClone();
+
+            public object Key
             {
                 get
                 {
-                    switch (returnType)
+                    if (!_current)
                     {
-                        case EnumeratorType.DE:
-                            return new DictionaryEntry(temp.key, temp.value);
-
-                        case EnumeratorType.KEY:
-                            return temp.key;
-
-                        case EnumeratorType.VALUE:
-                            return temp.value;
-
-                        default:
-                            break;
+                        throw new InvalidOperationException();
                     }
-                    return new DictionaryEntry(temp.key, temp.value); 
+
+                    return _currentKey!;
                 }
             }
 
-            // Advance to the next item.
-            public Boolean MoveNext()
+            [MethodImpl(MethodImplOptions.InternalCall)]
+            public extern bool MoveNext();
+
+            public DictionaryEntry Entry
             {
-            startLoop:
-                //iterate index or list
-                if (temp == null)
+                get
                 {
-                    index++;
-                    if (index < ht._numberOfBuckets)
+                    if (!_current)
                     {
-                        temp = ht._buckets[index];
+                        throw new InvalidOperationException();
+                    }
+
+                    return new DictionaryEntry(_currentKey!, _currentValue);
+                }
+            }
+
+            public object Current
+            {
+                get
+                {
+                    if (!_current)
+                    {
+                        throw new InvalidOperationException();
+                    }
+
+                    if (_getObjectRetType == Keys)
+                    {
+                        return _currentKey;
+                    }
+                    else if (_getObjectRetType == Values)
+                    {
+                        return _currentValue;
                     }
                     else
                     {
-                        return false;
+                        return new DictionaryEntry(_currentKey, _currentValue);
                     }
                 }
-                else
-                {
-                    temp = temp.next;
-                }
-
-                //null check
-                if (temp == null)
-                {
-                    goto startLoop;
-                }
-                    
-                return true;
             }
 
-            // Reset the index to restart the enumeration.
+            public object Value
+            {
+                get
+                {
+                    if (!_current)
+                    {
+                        throw new InvalidOperationException();
+                    }
+
+                    return _currentValue;
+                }
+            }
+
             public void Reset()
             {
-                index = -1;
+                if (_version != _hashtable._version)
+                {
+                    throw new InvalidOperationException();
+                }
+
+                _current = false;
+                _bucket = _hashtable._buckets.Length;
+                _currentKey = null;
+                _currentValue = null;
             }
         }
 
-        // EnumeratorType - Enum that describes which object the Enumerator's Current property will return.
-        private enum EnumeratorType
+        // Implements a Collection for the keys of a hashtable. An instance of this
+        // class is created by the GetKeys method of a hashtable.
+        private sealed class KeyCollection : ICollection
         {
-            // DictionaryEntry object. 
-            DE,
-            // Key object.
-            KEY,
-            // Value object.
-            VALUE
+            private readonly Hashtable _hashtable;
+
+            internal KeyCollection(Hashtable hashtable)
+            {
+                _hashtable = hashtable;
+            }
+
+            public void CopyTo(Array array, int arrayIndex)
+            {
+                if (array is null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+                if (arrayIndex < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                if (array.Length - arrayIndex < _hashtable._count)
+                {
+                    throw new ArgumentException();
+                }
+
+                _hashtable.CopyKeys(array, arrayIndex);
+            }
+
+            public IEnumerator GetEnumerator() => new HashtableEnumerator(_hashtable, HashtableEnumerator.Keys);
+
+            public bool IsSynchronized => _hashtable.IsSynchronized;
+
+            public object SyncRoot => _hashtable.SyncRoot;
+
+            public int Count => _hashtable._count;
         }
 
-        private class KeyCollection : ICollection
+        // Implements a Collection for the values of a hashtable. An instance of
+        // this class is created by the GetValues method of a hashtable.
+        private sealed class ValueCollection : ICollection
         {
-            Hashtable ht;
+            private readonly Hashtable _hashtable;
 
-            public KeyCollection(Hashtable hashtable) 
+            internal ValueCollection(Hashtable hashtable)
             {
-                ht = hashtable;
+                _hashtable = hashtable;
             }
 
-            #region ICollection Members
-
-            public int Count
+            public void CopyTo(Array array, int arrayIndex)
             {
-                get
+                if (array is null)
                 {
-                    return ht._count;
+                    throw new ArgumentNullException();
                 }
-            }
 
-            public bool IsSynchronized
-            {
-                get
+                if (arrayIndex < 0)
                 {
-                    return ht.IsSynchronized;
+                    throw new ArgumentOutOfRangeException();
                 }
-            }
 
-            public object SyncRoot
-            {
-                get
+                if (array.Length - arrayIndex < _hashtable._count)
                 {
-                    return ht.SyncRoot;
+                    throw new ArgumentException();
                 }
+
+                _hashtable.CopyValues(array, arrayIndex);
             }
-
-            public void CopyTo(Array array, int index)
-            {
-                ht.CopyToCollection(array, index, EnumeratorType.KEY);
-            }
-
-            #endregion
-
-            #region IEnumerable Members
 
             public IEnumerator GetEnumerator()
             {
-                return new HashtableEnumerator(ht, EnumeratorType.KEY);
+                return new HashtableEnumerator(_hashtable, HashtableEnumerator.Values);
             }
 
-            #endregion
+            public bool IsSynchronized => _hashtable.IsSynchronized;
+
+            public object SyncRoot => _hashtable.SyncRoot;
+
+            public int Count => _hashtable._count;
         }
 
-        private class ValueCollection : ICollection
+        #region helper methods
+
+        // Copies the keys of this hashtable to a given array starting at a given
+        // index. This method is used by the implementation of the CopyTo method in
+        // the KeyCollection class.
+        private void CopyKeys(Array array, int arrayIndex)
         {
-            Hashtable ht;
+            Debug.Assert(array != null);
 
-            public ValueCollection(Hashtable hashtable)
+            lock (_syncLock)
             {
-                ht = hashtable;
-            }
+                int j = 0;
 
-            #region ICollection Members
-
-            public int Count
-            {
-                get
+                for (int i = _buckets.Length; --i >= 0;)
                 {
-                    return ht._count;
+                    // can only work with buckets that aren't null
+                    if (_buckets[i] != null)
+                    {
+                        object keyv = _buckets[i]._key;
+
+                        if ((keyv != null) && (keyv != _buckets))
+                        {
+                            ((IList)array)[arrayIndex + j] = keyv;
+                            j++;
+                        }
+                    }
                 }
             }
-
-            public bool IsSynchronized
-            {
-                get
-                {
-                    return ht.IsSynchronized;
-                }
-            }
-
-            public object SyncRoot
-            {
-                get
-                {
-                    return ht.SyncRoot;
-                }
-            }
-
-            public void CopyTo(Array array, int index)
-            {
-                ht.CopyToCollection(array, index, EnumeratorType.VALUE);
-            }
-
-            #endregion
-
-            #region IEnumerable Members
-
-            public IEnumerator GetEnumerator()
-            {
-                return new HashtableEnumerator(ht, EnumeratorType.VALUE);
-            }
-
-            #endregion
         }
+
+        // Copies the values of this hashtable to a given array starting at a given
+        // index. This method is used by the implementation of the CopyTo method in
+        // the ValueCollection class.
+        private void CopyValues(Array array, int arrayIndex)
+        {
+            Debug.Assert(array != null);
+
+            lock (_syncLock)
+            {
+                int j = 0;
+
+                for (int i = _buckets.Length; --i >= 0;)
+                {
+                    object keyv = _buckets[i]._key;
+
+                    if ((keyv != null) && (keyv != _buckets))
+                    {
+                        ((IList)array)[arrayIndex + j] = _buckets[i]._value;
+                        j++;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Native methods
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void InsertNative(
+           object key,
+           object newValue,
+           bool add);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern object GetNative(object key);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern static int GetPrimeNative(int min);
+
+        #endregion
     }
 }
