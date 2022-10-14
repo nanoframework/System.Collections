@@ -21,6 +21,8 @@
     <IsTestProject>true</IsTestProject>
     <TestProjectType>UnitTest</TestProjectType>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(TF_BUILD)' == 'True' or '$(ContinuousIntegrationBuild)' == 'True'">true</RestoreLockedMode>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
@@ -31,9 +33,8 @@
     <ProjectReference Include="..\..\nanoFramework.System.Collections\nanoFramework.System.Collections.nfproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="mscorlib, Version=1.12.0.4, Culture=neutral, PublicKeyToken=c07d481e9758c731">
+    <Reference Include="mscorlib">
       <HintPath>..\..\packages\nanoFramework.CoreLibrary.1.12.0\lib\mscorlib.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="nanoFramework.TestFramework, Version=2.0.43.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
       <HintPath>..\..\packages\nanoFramework.TestFramework.2.0.43\lib\nanoFramework.TestFramework.dll</HintPath>
@@ -46,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="packages.lock.json" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <!-- MANUAL UPDATE HERE -->
