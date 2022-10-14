@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BBE482A2-86B3-4727-84CF-A53319F301CE}"
 	ProjectSection(SolutionItems) = preProject
 		nanoFramework.System.Collections.nuspec = nanoFramework.System.Collections.nuspec
+		.runsettings = .runsettings
 		NuGet.Config = NuGet.Config
 		version.json = version.json
 	EndProjectSection
