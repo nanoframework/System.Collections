@@ -1,14 +1,13 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31105.61
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{11A8DD76-328B-46DF-9F39-F559912D0360}") = "nanoFramework.System.Collections", "nanoFramework.System.Collections\nanoFramework.System.Collections.nfproj", "{ADEC287F-9989-40D3-A560-D918B90FFB03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BBE482A2-86B3-4727-84CF-A53319F301CE}"
 	ProjectSection(SolutionItems) = preProject
-		nanoFramework.System.Collections.nuspec = nanoFramework.System.Collections.nuspec
 		.runsettings = .runsettings
+		nanoFramework.System.Collections.nuspec = nanoFramework.System.Collections.nuspec
 		NuGet.Config = NuGet.Config
 		version.json = version.json
 	EndProjectSection
