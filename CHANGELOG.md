@@ -1,5 +1,38 @@
 # Changelog
 
+## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0...HEAD)
+
+**Documentation and other chores:**
+
+- Update 2 NuGet dependencies [\#112](https://github.com/nanoframework/System.Collections/pull/112)
+- Update 1 NuGet dependencies [\#109](https://github.com/nanoframework/System.Collections/pull/109)
+- Update 1 NuGet dependencies [\#108](https://github.com/nanoframework/System.Collections/pull/108)
+- Update 1 NuGet dependencies [\#107](https://github.com/nanoframework/System.Collections/pull/107)
+- Update 1 NuGet dependencies [\#106](https://github.com/nanoframework/System.Collections/pull/106)
+- Update 1 NuGet dependencies [\#105](https://github.com/nanoframework/System.Collections/pull/105)
+- Update 1 NuGet dependencies [\#103](https://github.com/nanoframework/System.Collections/pull/103)
+- Fix unit tests for VS17.3 [\#102](https://github.com/nanoframework/System.Collections/pull/102)
+- Update 1 NuGet dependencies [\#100](https://github.com/nanoframework/System.Collections/pull/100)
+- Update 1 NuGet dependencies [\#99](https://github.com/nanoframework/System.Collections/pull/99)
+- Update 1 NuGet dependencies [\#98](https://github.com/nanoframework/System.Collections/pull/98)
+- Update 1 NuGet dependencies [\#97](https://github.com/nanoframework/System.Collections/pull/97)
+- Update 1 NuGet dependencies [\#96](https://github.com/nanoframework/System.Collections/pull/96)
+- Update 1 NuGet dependencies [\#95](https://github.com/nanoframework/System.Collections/pull/95)
+- Update 1 NuGet dependencies [\#94](https://github.com/nanoframework/System.Collections/pull/94)
+- Update 1 NuGet dependencies [\#93](https://github.com/nanoframework/System.Collections/pull/93)
+- Update 1 NuGet dependencies [\#92](https://github.com/nanoframework/System.Collections/pull/92)
+- Update 1 NuGet dependencies [\#90](https://github.com/nanoframework/System.Collections/pull/90)
+
+## [v1.4.0](https://github.com/nanoframework/System.Collections/tree/v1.4.0) (2022-03-28)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.30...v1.4.0)
+
+**Documentation and other chores:**
+
+- release-v1.4.0 [\#88](https://github.com/nanoframework/System.Collections/pull/88)
+
 ## [v1.4.0-preview.30](https://github.com/nanoframework/System.Collections/tree/v1.4.0-preview.30) (2022-03-28)
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0-preview.27...v1.4.0-preview.30)
@@ -85,6 +118,10 @@
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.3.0-preview.14...v1.3.0)
 
+**Documentation and other chores:**
+
+- release-v1.3.0 [\#69](https://github.com/nanoframework/System.Collections/pull/69)
+
 ## [v1.3.0-preview.14](https://github.com/nanoframework/System.Collections/tree/v1.3.0-preview.14) (2021-12-02)
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.3.0-preview.12...v1.3.0-preview.14)
@@ -112,11 +149,15 @@
 - Update 1 nuget dependencies [\#64](https://github.com/nanoframework/System.Collections/pull/64)
 - Update 1 nuget dependencies [\#62](https://github.com/nanoframework/System.Collections/pull/62)
 - Update 1 nuget dependencies [\#61](https://github.com/nanoframework/System.Collections/pull/61)
-- Update 1 nuget dependencies [\#59](https://github.com/nanoframework/System.Collections/pull/59)
 
 ## [v1.2.0](https://github.com/nanoframework/System.Collections/tree/v1.2.0) (2021-07-15)
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.2.0-preview.76...v1.2.0)
+
+**Documentation and other chores:**
+
+- release-v1.2.0 [\#60](https://github.com/nanoframework/System.Collections/pull/60)
+- Update 1 nuget dependencies [\#59](https://github.com/nanoframework/System.Collections/pull/59)
 
 ## [v1.2.0-preview.76](https://github.com/nanoframework/System.Collections/tree/v1.2.0-preview.76) (2021-07-14)
 
@@ -324,9 +365,17 @@
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.0.1...v1.1.0)
 
+**Documentation and other chores:**
+
+- release-v1.1.0 [\#15](https://github.com/nanoframework/System.Collections/pull/15)
+
 ## [v1.0.1](https://github.com/nanoframework/System.Collections/tree/v1.0.1) (2020-06-12)
 
 [Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.0.1-preview.11...v1.0.1)
+
+**Documentation and other chores:**
+
+- Release release-v1.0.1 [\#14](https://github.com/nanoframework/System.Collections/pull/14)
 
 ## [v1.0.1-preview.11](https://github.com/nanoframework/System.Collections/tree/v1.0.1-preview.11) (2020-06-11)
 
