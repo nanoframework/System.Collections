@@ -60,6 +60,7 @@ steps:
 # update dependents
 - template: azure-pipelines-templates/update-dependents.yml@templates  
   parameters:
+    waitBeforeUpdate: eq(variables['UPDATE_DEPENDENTS'], 'false')
     repositoriesToUpdate: |
       System.Net.Http
       nanoFramework.Json
