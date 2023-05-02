@@ -54,7 +54,7 @@ steps:
   parameters:
     sonarCloudProject: 'nanoframework_lib-nanoFramework.System.Collections'
     runUnitTests: true
-    unitTestRunsettings: '$(System.DefaultWorkingDirectory)\.runsettings'
+    unitTestRunsettings: '$(System.DefaultWorkingDirectory)\Tests\HashtableTests\nano.runsettings'
 
 # update dependencies
 # update dependents
