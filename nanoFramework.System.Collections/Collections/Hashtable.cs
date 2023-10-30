@@ -15,6 +15,7 @@ namespace System.Collections
     /// <remarks>
     /// The implementation for .NET nanoFramework, unlike the full .NET, doesn't support collisions so every key has to be truly unique through it's <see cref="object.GetHashCode"/>.
     /// </remarks>
+    [Serializable]
     public class Hashtable : ICloneable, IDictionary
     {
         private const int InitialSize = 3;

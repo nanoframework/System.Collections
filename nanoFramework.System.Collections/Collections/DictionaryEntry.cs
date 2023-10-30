@@ -9,6 +9,7 @@ namespace System.Collections
     /// <summary>
     /// Defines a dictionary key/value pair that can be set or retrieved.
     /// </summary>
+    [Serializable]
     public class DictionaryEntry
     {
         /// <summary>
