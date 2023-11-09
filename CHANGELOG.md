@@ -2,7 +2,25 @@
 
 ## [**Changes available only in 'Preview' NuGet packages:**](https://github.com/nanoframework/System.Collections/tree/HEAD)
 
-[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0...HEAD)
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.5.18...HEAD)
+
+**Implemented enhancements:**
+
+- `DictionaryEntry` and `Hastable` now have serializable attribute [\#120](https://github.com/nanoframework/System.Collections/pull/120)
+
+**Documentation and other chores:**
+
+- Update 2 NuGet dependencies [\#122](https://github.com/nanoframework/System.Collections/pull/122)
+- Update 2 NuGet dependencies [\#119](https://github.com/nanoframework/System.Collections/pull/119)
+- Update 2 NuGet dependencies [\#118](https://github.com/nanoframework/System.Collections/pull/118)
+- Update 1 NuGet dependencies [\#117](https://github.com/nanoframework/System.Collections/pull/117)
+- Update 2 NuGet dependencies [\#116](https://github.com/nanoframework/System.Collections/pull/116)
+- Update 1 NuGet dependencies [\#114](https://github.com/nanoframework/System.Collections/pull/114)
+- Update 1 NuGet dependencies [\#113](https://github.com/nanoframework/System.Collections/pull/113)
+
+## [v1.5.18](https://github.com/nanoframework/System.Collections/tree/v1.5.18) (2022-12-22)
+
+[Full Changelog](https://github.com/nanoframework/System.Collections/compare/v1.4.0...v1.5.18)
 
 **Documentation and other chores:**
 
