@@ -677,6 +677,63 @@ namespace NFUnitTests
             }, "No exception was thrown when adding a NULL key.");
         }
 
+        [TestMethod]
+        public void Hashtable_InsertClassAsKey()
+        {
+            Hashtable ht = new Hashtable();
+
+            /////////////
+            OutputHelper.WriteLine("Adding element with a 'string' as key.");
+
+            ht.Add("Key 1", 9999);
+
+            /////////////
+            OutputHelper.WriteLine("Adding element with a 'class' as key.");
+
+            ht.Add(new SomeKey(), 8888);
+
+            /////////////
+            OutputHelper.WriteLine("Adding element with another 'class' as key.");
+
+            ht.Add(new SomeOtherKey(7777), 7777);
+        }
+
+        [TestMethod]
+        public void Hashtable_ClassAsKey()
+        {
+            var hashtable = new Hashtable();
+
+            OutputHelper.WriteLine("Adding 100 elements to the hashtable with SomeKey class");
+
+            for (int i = 0; i < 100; i++)
+            {
+                SomeKey key = new SomeKey();
+
+                hashtable.Add(key, key.GetHashCode());
+            }
+
+            foreach (var key in hashtable.Keys)
+            {
+                Assert.AreEqual(key.GetHashCode(), (int)hashtable[key], $"Failed on the {key} key.");
+            }
+
+            hashtable = new Hashtable();
+
+            OutputHelper.WriteLine("Adding 100 elements to the hashtable with SomeOtherKey class");
+
+            for (int i = 0; i < 100; i++)
+            {
+                SomeOtherKey key = new SomeOtherKey(i);
+
+                hashtable.Add(key, key.I.GetHashCode());
+            }
+
+            foreach (var key in hashtable.Keys)
+            {
+                Assert.AreEqual((key as SomeOtherKey).I.GetHashCode(), (int)hashtable[key], $"Failed on the {key} key.");
+            }
+        }
+
         #region helper classes and methods
 
         /// <summary>
@@ -781,6 +838,28 @@ namespace NFUnitTests
             }
 
             return hashtable;
+        }
+
+        public class SomeKey
+        {
+        }
+
+
+        public class SomeOtherKey
+        {
+            private readonly int _i;
+
+            public int I => _i;
+
+            public SomeOtherKey()
+            {
+            }
+
+            public SomeOtherKey(int i)
+            {
+                _i = i;
+            }
+
         }
 
         private class Foo
