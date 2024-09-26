@@ -35,10 +35,10 @@ namespace NFUnitTests
         {
             // No exception
             var hash1 = new ComparableHashtable(new Hashtable());
-            Assert.Equal(0, hash1.Count);
+            Assert.AreEqual(0, hash1.Count);
 
             hash1 = new ComparableHashtable(new Hashtable());
-            Assert.Equal(0, hash1.Count);
+            Assert.AreEqual(0, hash1.Count);
 
             Hashtable hash2 = CreateIntHashtable(100);
             hash1 = new ComparableHashtable(hash2);
@@ -61,13 +61,13 @@ namespace NFUnitTests
         [TestMethod]
         public void Ctor_Int_Invalid()
         {
-            Assert.Throws(typeof(ArgumentOutOfRangeException),
+            Assert.ThrowsException(typeof(ArgumentOutOfRangeException),
                 () =>
                 {
                     new Hashtable(-1);
                 });
 
-            Assert.Throws(typeof(ArgumentException),
+            Assert.ThrowsException(typeof(ArgumentException),
                 () =>
                 {
                     new Hashtable(int.MaxValue);
@@ -90,11 +90,11 @@ namespace NFUnitTests
                 var foo = new Foo();
                 hashtableType.Add("Key", foo);
 
-                Assert.Equal("Hello World", ((Foo)hashtableType["Key"]).StringValue);
+                Assert.AreEqual("Hello World", ((Foo)hashtableType["Key"]).StringValue);
 
                 // Changing original object should change the object stored in the Hashtable
                 foo.StringValue = "Goodbye";
-                Assert.Equal("Goodbye", ((Foo)hashtableType["Key"]).StringValue);
+                Assert.AreEqual("Goodbye", ((Foo)hashtableType["Key"]).StringValue);
             }
         }
 
@@ -115,7 +115,7 @@ namespace NFUnitTests
                     hash.Add(key, value);
                 }
 
-                Assert.Equal(Count, hash.Count);
+                Assert.AreEqual(Count, hash.Count);
                 hash.Clear();
             }
         }
@@ -143,8 +143,8 @@ namespace NFUnitTests
             count = 0;
             foreach (long number in inputData)
             {
-                Assert.True(hash[number].Equals(count));
-                Assert.True(hash.Contains(number));
+                Assert.IsTrue(hash[number].Equals(count));
+                Assert.IsTrue(hash.Contains(number));
 
                 count++;
             }
@@ -154,7 +154,7 @@ namespace NFUnitTests
                 hash.Remove(number);
             }
 
-            Assert.Equal(0, hash.Count);
+            Assert.AreEqual(0, hash.Count);
         }
 
         [TestMethod]
@@ -172,20 +172,20 @@ namespace NFUnitTests
             {
                 Hashtable clone = (Hashtable)hashtableType.Clone();
 
-                Assert.Equal(hashtableType.Count, clone.Count);
-                Assert.Equal(hashtableType.IsSynchronized, clone.IsSynchronized);
-                Assert.Equal(hashtableType.IsFixedSize, clone.IsFixedSize);
-                Assert.Equal(hashtableType.IsReadOnly, clone.IsReadOnly);
+                Assert.AreEqual(hashtableType.Count, clone.Count);
+                Assert.AreEqual(hashtableType.IsSynchronized, clone.IsSynchronized);
+                Assert.AreEqual(hashtableType.IsFixedSize, clone.IsFixedSize);
+                Assert.AreEqual(hashtableType.IsReadOnly, clone.IsReadOnly);
 
                 for (int i = 0; i < clone.Count; i++)
                 {
                     string key = "Key_" + i;
                     string value = "Value_" + i;
 
-                    Assert.True(clone.Contains(key));
+                    Assert.IsTrue(clone.Contains(key));
                     // TODO need ContainsValue
-                    //Assert.NotNull(clone.ContainsValue(value));
-                    Assert.True(value.Equals(clone[key]));
+                    //Assert.IsNotNull(clone.ContainsValue(value));
+                    Assert.IsTrue(value.Equals(clone[key]));
                 }
             }
 
@@ -201,20 +201,20 @@ namespace NFUnitTests
             {
                 Hashtable clone = (Hashtable)hashtableType.Clone();
 
-                Assert.Equal(hashtableType.Count, clone.Count);
-                Assert.Equal(hashtableType.IsSynchronized, clone.IsSynchronized);
-                Assert.Equal(hashtableType.IsFixedSize, clone.IsFixedSize);
-                Assert.Equal(hashtableType.IsReadOnly, clone.IsReadOnly);
+                Assert.AreEqual(hashtableType.Count, clone.Count);
+                Assert.AreEqual(hashtableType.IsSynchronized, clone.IsSynchronized);
+                Assert.AreEqual(hashtableType.IsFixedSize, clone.IsFixedSize);
+                Assert.AreEqual(hashtableType.IsReadOnly, clone.IsReadOnly);
 
                 for (int i = 0; i < clone.Count; i++)
                 {
                     string key = "Key_" + i;
                     string value = "Value_" + i;
 
-                    Assert.True(clone.Contains(key));
+                    Assert.IsTrue(clone.Contains(key));
                     // TODO need ContainsValue
-                    //Assert.NotNull(clone.ContainsValue(value));
-                    Assert.True(value.Equals(clone[key]));
+                    //Assert.IsNotNull(clone.ContainsValue(value));
+                    Assert.IsTrue(value.Equals(clone[key]));
                 }
             }
         }
@@ -231,17 +231,17 @@ namespace NFUnitTests
             Hashtable clone = (Hashtable)hash.Clone();
             for (int i = 0; i < clone.Count; i++)
             {
-                Assert.Equal("Hello World", ((Foo)clone[i]).StringValue);
-                Assert.Same(hash[i], clone[i]);
+                Assert.AreEqual("Hello World", ((Foo)clone[i]).StringValue);
+                Assert.AreSame(hash[i], clone[i]);
             }
 
             // Change object in original hashtable
             ((Foo)hash[1]).StringValue = "Goodbye";
-            Assert.Equal("Goodbye", ((Foo)clone[1]).StringValue);
+            Assert.AreEqual("Goodbye", ((Foo)clone[1]).StringValue);
 
             // Removing an object from the original hashtable doesn't change the clone
             hash.Remove(0);
-            Assert.True(clone.Contains(0));
+            Assert.IsTrue(clone.Contains(0));
         }
 
         [TestMethod]
@@ -251,10 +251,10 @@ namespace NFUnitTests
             Hashtable hash = CreateIntHashtable(100);
 
             ICollection collection = (ICollection)hash.Clone();
-            Assert.Equal(hash.Count, collection.Count);
+            Assert.AreEqual(hash.Count, collection.Count);
 
             IDictionary dictionary = (IDictionary)hash.Clone();
-            Assert.Equal(hash.Count, dictionary.Count);
+            Assert.AreEqual(hash.Count, dictionary.Count);
         }
 
         [TestMethod]
@@ -273,25 +273,25 @@ namespace NFUnitTests
                 {
                     string key = "Key_" + i;
 
-                    Assert.True(hashtableType.Contains(key), $"Expecting to find {key} key");
+                    Assert.IsTrue(hashtableType.Contains(key), $"Expecting to find {key} key");
                 }
 
-                Assert.False(hashtableType.Contains("Non Existent Key"));
+                Assert.IsFalse(hashtableType.Contains("Non Existent Key"));
 
-                Assert.False(hashtableType.Contains(101));
-                Assert.False(hashtableType.Contains("Non Existent Key"));
+                Assert.IsFalse(hashtableType.Contains(101));
+                Assert.IsFalse(hashtableType.Contains("Non Existent Key"));
 
                 string removedKey = "Key_1";
                 hashtableType.Remove(removedKey);
 
-                Assert.False(hashtableType.Contains(removedKey), $"Hashtacble contains {removedKey} when it shouldn't.");
+                Assert.IsFalse(hashtableType.Contains(removedKey), $"Hashtacble contains {removedKey} when it shouldn't.");
             }
         }
 
         [TestMethod]
         public void ContainsKey_NullKey_ThrowsArgumentNullException()
         {
-            Assert.Throws(
+            Assert.ThrowsException(
                 typeof(ArgumentNullException),
                 () =>
                 {
@@ -323,7 +323,7 @@ namespace NFUnitTests
             IEnumerator enumerator = keys.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                Assert.False(enumerator.Current.Equals("Key_0"));
+                Assert.IsFalse(enumerator.Current.Equals("Key_0"));
             }
         }
 
@@ -341,14 +341,14 @@ namespace NFUnitTests
             IEnumerator enumerator = values.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                Assert.False(enumerator.Current.Equals("Value_0"));
+                Assert.IsFalse(enumerator.Current.Equals("Value_0"));
             }
         }
 
         [TestMethod]
         public void Values_ModifyingHashtable_WhileEnumerating()
         {
-            Assert.Throws(typeof(InvalidOperationException),
+            Assert.ThrowsException(typeof(InvalidOperationException),
                 () =>
                 {
                     Hashtable hash = CreateStringHashtable(10);
@@ -395,11 +395,11 @@ namespace NFUnitTests
             t.Add(key5, entry5);
 
             // 2) check all added keys are present
-            Assert.True(t.Contains(key1), $"Key '{key1}' not found in Hashtable.");
-            Assert.True(t.Contains(key2), $"Key '{key2}' not found in Hashtable.");
-            Assert.True(t.Contains(key3), $"Key '{key3}' not found in Hashtable.");
-            Assert.True(t.Contains(key4), $"Key '{key4}' not found in Hashtable.");
-            Assert.True(t.Contains(key5), $"Key '{key5}' not found in Hashtable.");
+            Assert.IsTrue(t.Contains(key1), $"Key '{key1}' not found in Hashtable.");
+            Assert.IsTrue(t.Contains(key2), $"Key '{key2}' not found in Hashtable.");
+            Assert.IsTrue(t.Contains(key3), $"Key '{key3}' not found in Hashtable.");
+            Assert.IsTrue(t.Contains(key4), $"Key '{key4}' not found in Hashtable.");
+            Assert.IsTrue(t.Contains(key5), $"Key '{key5}' not found in Hashtable.");
 
             // 3) check that the items are what they are expected to be
             // check the items reference and value first...
@@ -411,10 +411,10 @@ namespace NFUnitTests
                 MyClassTypeEntry entry = (MyClassTypeEntry)t[k];
 
                 // check that the reference is the same 
-                Assert.True(Object.ReferenceEquals(entry, entries[index]));
+                Assert.IsTrue(Object.ReferenceEquals(entry, entries[index]));
 
                 // check that the values are the same
-                Assert.True(entry.Equals(entries[index]), "Values don't match");
+                Assert.IsTrue(entry.Equals(entries[index]), "Values don't match");
 
                 index++;
             }
@@ -434,7 +434,7 @@ namespace NFUnitTests
                     }
                 }
 
-                Assert.True(found, $"Couldn't find '{k}' key.");
+                Assert.IsTrue(found, $"Couldn't find '{k}' key.");
             }
 
             // 4) checked that we can remove the items
@@ -454,17 +454,17 @@ namespace NFUnitTests
             // 5) check that a removed item is no longer in the table, and so its key it is no longer in the table as well           
             // check the items reference and value first...
             // test nothing is left in the Hashtable 
-            Assert.True(t.Count == 0, "Hashtable shouldn't have elements, but it has.");
+            Assert.IsTrue(t.Count == 0, "Hashtable shouldn't have elements, but it has.");
 
             foreach (string k in keys)
             {
                 // test Contains
-                Assert.False(t.Contains(k), $"Hashtable contains '{k}' key, but it shouldn't.");
+                Assert.IsFalse(t.Contains(k), $"Hashtable contains '{k}' key, but it shouldn't.");
 
                 // test indexer
                 MyClassTypeEntry entry = (MyClassTypeEntry)t[k];
 
-                Assert.Null(entry, "'entry' should be null, but is not.");
+                Assert.IsNull(entry, "'entry' should be null, but is not.");
             }
         }
 
@@ -475,18 +475,18 @@ namespace NFUnitTests
 
             MyClassTypeEntry[] vals = InsertRandomValues(t, c_MinimumEntries);
 
-            Assert.True(t.Count == vals.Length, "Hashtable and collection should have the same number of elements, but they don't.");
+            Assert.IsTrue(t.Count == vals.Length, "Hashtable and collection should have the same number of elements, but they don't.");
 
             t.Clear();
 
-            Assert.True(t.Count == 0);
+            Assert.IsTrue(t.Count == 0);
 
             ICollection keys = t.Keys;
             ICollection values = t.Values;
 
-            Assert.True(keys.Count == 0, "Hashtable should have no keys, but it has.");
+            Assert.IsTrue(keys.Count == 0, "Hashtable should have no keys, but it has.");
 
-            Assert.True(values.Count == 0, "Hashtable should have no values, but it has.");
+            Assert.IsTrue(values.Count == 0, "Hashtable should have no values, but it has.");
         }
 
         [TestMethod]
@@ -499,7 +499,7 @@ namespace NFUnitTests
             // check that the hastable contains the keys
             foreach (MyClassTypeEntry k in vals)
             {
-                Assert.True(t.Contains(k.StringValue), $"Hashtable doesn't contain key '{k.StringValue}' but it should.");
+                Assert.IsTrue(t.Contains(k.StringValue), $"Hashtable doesn't contain key '{k.StringValue}' but it should.");
             }
 
             ICollection keys = t.Keys;
@@ -517,7 +517,7 @@ namespace NFUnitTests
                     }
                 }
 
-                Assert.True(found, $"Collection doesn't contain key '{m.StringValue}' but it should.");
+                Assert.IsTrue(found, $"Collection doesn't contain key '{m.StringValue}' but it should.");
             }
         }
 
@@ -531,7 +531,7 @@ namespace NFUnitTests
             // check that the hastable contains the keys
             foreach (MyClassTypeEntry k in vals)
             {
-                Assert.True(t.Contains(k.StringValue), $"Hashtable doesn't contain element '{k.StringValue}' but it should.");
+                Assert.IsTrue(t.Contains(k.StringValue), $"Hashtable doesn't contain element '{k.StringValue}' but it should.");
             }
 
             ICollection values = t.Values;
@@ -550,7 +550,7 @@ namespace NFUnitTests
                     }
                 }
 
-                Assert.True(verified, $"Collection doesn't contain element '{m.StringValue}' but it should.");
+                Assert.IsTrue(verified, $"Collection doesn't contain element '{m.StringValue}' but it should.");
             }
         }
 
@@ -563,13 +563,13 @@ namespace NFUnitTests
 
             int count = t.Count;
 
-            Assert.True(vals.Length == count);
+            Assert.IsTrue(vals.Length == count);
 
             t.Add("a new key without a guid, can't exist", new MyClassTypeEntry());
             t.Add("a new key without a guid, can't exist again", new MyClassTypeEntry());
             t.Add("a new key without a guid, can't exist another time", new MyClassTypeEntry());
 
-            Assert.True((count + 3) == t.Count, "Number of elements doesn't match.");
+            Assert.IsTrue((count + 3) == t.Count, "Number of elements doesn't match.");
         }
 
         [TestMethod]
@@ -583,7 +583,7 @@ namespace NFUnitTests
             MyClassTypeEntry entry = vals[vals.Length / 2];
             string key = MyClassTypeEntry.GetKey(entry.IntegerValue, entry.GuidValue);
 
-            Assert.Throws(typeof(ArgumentException), () =>
+            Assert.ThrowsException(typeof(ArgumentException), () =>
             {
                 t.Add(key, new MyClassTypeEntry());
 
@@ -603,7 +603,7 @@ namespace NFUnitTests
 
             int duplicate = ht.Count / 4;
 
-            Assert.Throws(typeof(ArgumentException), () =>
+            Assert.ThrowsException(typeof(ArgumentException), () =>
             {
                 ht.Add(duplicate, duplicate);
 
@@ -616,7 +616,7 @@ namespace NFUnitTests
 
             duplicate = ht.Count / 2;
 
-            Assert.Throws(typeof(ArgumentException), () =>
+            Assert.ThrowsException(typeof(ArgumentException), () =>
             {
                 ht.Add(duplicate, duplicate);
 
@@ -658,11 +658,11 @@ namespace NFUnitTests
                     }
                 }
 
-                Assert.True(masterKeyFound, $"Couldn't find key {masterKey} in the Array copy.");
+                Assert.IsTrue(masterKeyFound, $"Couldn't find key {masterKey} in the Array copy.");
             }
 
             // all keys should have been found 
-            Assert.True(countOfKeysFound == t.Count, $"Keys count don't match. Hashtable has {t.Count} and was expecting {countOfKeysFound}");
+            Assert.IsTrue(countOfKeysFound == t.Count, $"Keys count don't match. Hashtable has {t.Count} and was expecting {countOfKeysFound}");
         }
 
         [TestMethod]
@@ -670,7 +670,7 @@ namespace NFUnitTests
         {
             Hashtable ht = CreateIntHashtable(10);
 
-            Assert.Throws(typeof(ArgumentNullException), () =>
+            Assert.ThrowsException(typeof(ArgumentNullException), () =>
             {
                 ht.Add(null, 9999);
 
@@ -760,17 +760,17 @@ namespace NFUnitTests
         {
             if (hash2 == null)
             {
-                Assert.Equal(0, hash1.Count, "Element count is different.");
+                Assert.AreEqual(0, hash1.Count, "Element count is different.");
             }
             else
             {
                 // Make sure that construtor imports all keys and values
-                Assert.Equal(hash2.Count, hash1.Count);
+                Assert.AreEqual(hash2.Count, hash1.Count);
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Assert.True(hash1.Contains(i));
-                    Assert.NotNull(hash1[i]);
+                    Assert.IsTrue(hash1.Contains(i));
+                    Assert.IsNotNull(hash1[i]);
                 }
 
                 // Make sure the new and old hashtables are not linked
@@ -778,14 +778,14 @@ namespace NFUnitTests
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Assert.True(hash1.Contains(i));
-                    Assert.NotNull(hash1[i]);
+                    Assert.IsTrue(hash1.Contains(i));
+                    Assert.IsNotNull(hash1[i]);
                 }
             }
 
-            Assert.False(hash1.IsFixedSize);
-            Assert.False(hash1.IsReadOnly);
-            Assert.False(hash1.IsSynchronized);
+            Assert.IsFalse(hash1.IsFixedSize);
+            Assert.IsFalse(hash1.IsReadOnly);
+            Assert.IsFalse(hash1.IsSynchronized);
 
             // Make sure we can add to the hashtable
             int count = hash1.Count;
@@ -793,8 +793,8 @@ namespace NFUnitTests
             {
                 hash1.Add(i, i);
 
-                Assert.True(hash1.Contains(i));
-                Assert.NotNull(hash1[i]);
+                Assert.IsTrue(hash1.Contains(i));
+                Assert.IsNotNull(hash1[i]);
             }
         }
 

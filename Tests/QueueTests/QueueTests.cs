@@ -40,48 +40,48 @@ namespace NFUnitTests
             queue.Enqueue(TestObjects.nul);
             queue.Enqueue(TestObjects.en);
 
-            Assert.True(19 == queue.Count, $"Queue.Count is incorrect. Expecting 18 got {queue.Count}");
+            Assert.IsTrue(19 == queue.Count, $"Queue.Count is incorrect. Expecting 18 got {queue.Count}");
 
-            Assert.True(TestObjects.u1.Equals(queue.Peek()), "u2 Peek failed");
-            Assert.True(TestObjects.u1.Equals(queue.Dequeue()), "u2 Dequeue failed");
-            Assert.True(TestObjects.s1.Equals(queue.Peek()), "s1 Peek failed");
-            Assert.True(TestObjects.s1.Equals(queue.Dequeue()), "s1 Dequeue failed");
-            Assert.True(TestObjects.u2.Equals(queue.Peek()), "u2 Peek failed");
-            Assert.True(TestObjects.u2.Equals(queue.Dequeue()), "u2 Dequeue failed");
-            Assert.True(TestObjects.s2.Equals(queue.Peek()), "s2 Peek failed");
-            Assert.True(TestObjects.s2.Equals(queue.Dequeue()), "s2 Dequeue failed");
-            Assert.True(TestObjects.u4.Equals(queue.Peek()), "u4 Peek failed");
-            Assert.True(TestObjects.u4.Equals(queue.Dequeue()), "u4 Dequeue failed");
-            Assert.True(TestObjects.s4.Equals(queue.Peek()), "s4 Peek failed");
-            Assert.True(TestObjects.s4.Equals(queue.Dequeue()), "s4 Dequeue failed");
-            Assert.True(TestObjects.u8.Equals(queue.Peek()), "u8 Peek failed");
-            Assert.True(TestObjects.u8.Equals(queue.Dequeue()), "u8 Dequeue failed");
-            Assert.True(TestObjects.s8.Equals(queue.Peek()), "s8 Peek failed");
-            Assert.True(TestObjects.s8.Equals(queue.Dequeue()), "s8 Dequeue failed");
-            Assert.True(TestObjects.f4.Equals(queue.Peek()), "f4 Peek failed");
-            Assert.True(TestObjects.f4.Equals(queue.Dequeue()), "f4 Dequeue failed");
-            Assert.True(TestObjects.f8.Equals(queue.Peek()), "f8 Peek failed");
-            Assert.True(TestObjects.f8.Equals(queue.Dequeue()), "f8 Dequeue failed");
-            Assert.True(TestObjects.c2.Equals(queue.Peek()), "c2 Peek failed");
-            Assert.True(TestObjects.c2.Equals(queue.Dequeue()), "c2 Dequeue failed");
-            Assert.True(TestObjects.str.Equals(queue.Peek()), "str Peek failed");
-            Assert.True(TestObjects.str.Equals(queue.Dequeue()), "str Dequeue failed");
-            Assert.True(TestObjects.dt.Equals(queue.Peek()), "dt Peek failed");
-            Assert.True(TestObjects.dt.Equals(queue.Dequeue()), "dt Dequeue failed");
-            Assert.True(TestObjects.ts.Equals(queue.Peek()), "ts Peek failed");
-            Assert.True(TestObjects.ts.Equals(queue.Dequeue()), "ts Dequeue failed");
-            Assert.True(queue.Peek().Equals(TestObjects.st), "st Peek failed");
-            Assert.True(queue.Dequeue().Equals(TestObjects.st), "st Dequeue failed");
-            Assert.True(TestObjects.cl.Equals(queue.Peek()), "cl Peek failed");
-            Assert.True(TestObjects.cl.Equals(queue.Dequeue()), "cl Dequeue failed");
-            Assert.True(TestObjects.o.Equals(queue.Peek()), "o Peek failed");
-            Assert.True(TestObjects.o.Equals(queue.Dequeue()), "o Dequeue failed");
-            Assert.True(queue.Peek() is null, "nul Peek failed");
-            Assert.True(queue.Dequeue() is null, "nul Dequeue failed");
-            Assert.True(TestObjects.en.Equals(queue.Peek()), "en Peek failed");
-            Assert.True(TestObjects.en.Equals(queue.Dequeue()), "en Dequeue failed");
+            Assert.IsTrue(TestObjects.u1.Equals(queue.Peek()), "u2 Peek failed");
+            Assert.IsTrue(TestObjects.u1.Equals(queue.Dequeue()), "u2 Dequeue failed");
+            Assert.IsTrue(TestObjects.s1.Equals(queue.Peek()), "s1 Peek failed");
+            Assert.IsTrue(TestObjects.s1.Equals(queue.Dequeue()), "s1 Dequeue failed");
+            Assert.IsTrue(TestObjects.u2.Equals(queue.Peek()), "u2 Peek failed");
+            Assert.IsTrue(TestObjects.u2.Equals(queue.Dequeue()), "u2 Dequeue failed");
+            Assert.IsTrue(TestObjects.s2.Equals(queue.Peek()), "s2 Peek failed");
+            Assert.IsTrue(TestObjects.s2.Equals(queue.Dequeue()), "s2 Dequeue failed");
+            Assert.IsTrue(TestObjects.u4.Equals(queue.Peek()), "u4 Peek failed");
+            Assert.IsTrue(TestObjects.u4.Equals(queue.Dequeue()), "u4 Dequeue failed");
+            Assert.IsTrue(TestObjects.s4.Equals(queue.Peek()), "s4 Peek failed");
+            Assert.IsTrue(TestObjects.s4.Equals(queue.Dequeue()), "s4 Dequeue failed");
+            Assert.IsTrue(TestObjects.u8.Equals(queue.Peek()), "u8 Peek failed");
+            Assert.IsTrue(TestObjects.u8.Equals(queue.Dequeue()), "u8 Dequeue failed");
+            Assert.IsTrue(TestObjects.s8.Equals(queue.Peek()), "s8 Peek failed");
+            Assert.IsTrue(TestObjects.s8.Equals(queue.Dequeue()), "s8 Dequeue failed");
+            Assert.IsTrue(TestObjects.f4.Equals(queue.Peek()), "f4 Peek failed");
+            Assert.IsTrue(TestObjects.f4.Equals(queue.Dequeue()), "f4 Dequeue failed");
+            Assert.IsTrue(TestObjects.f8.Equals(queue.Peek()), "f8 Peek failed");
+            Assert.IsTrue(TestObjects.f8.Equals(queue.Dequeue()), "f8 Dequeue failed");
+            Assert.IsTrue(TestObjects.c2.Equals(queue.Peek()), "c2 Peek failed");
+            Assert.IsTrue(TestObjects.c2.Equals(queue.Dequeue()), "c2 Dequeue failed");
+            Assert.IsTrue(TestObjects.str.Equals(queue.Peek()), "str Peek failed");
+            Assert.IsTrue(TestObjects.str.Equals(queue.Dequeue()), "str Dequeue failed");
+            Assert.IsTrue(TestObjects.dt.Equals(queue.Peek()), "dt Peek failed");
+            Assert.IsTrue(TestObjects.dt.Equals(queue.Dequeue()), "dt Dequeue failed");
+            Assert.IsTrue(TestObjects.ts.Equals(queue.Peek()), "ts Peek failed");
+            Assert.IsTrue(TestObjects.ts.Equals(queue.Dequeue()), "ts Dequeue failed");
+            Assert.IsTrue(queue.Peek().Equals(TestObjects.st), "st Peek failed");
+            Assert.IsTrue(queue.Dequeue().Equals(TestObjects.st), "st Dequeue failed");
+            Assert.IsTrue(TestObjects.cl.Equals(queue.Peek()), "cl Peek failed");
+            Assert.IsTrue(TestObjects.cl.Equals(queue.Dequeue()), "cl Dequeue failed");
+            Assert.IsTrue(TestObjects.o.Equals(queue.Peek()), "o Peek failed");
+            Assert.IsTrue(TestObjects.o.Equals(queue.Dequeue()), "o Dequeue failed");
+            Assert.IsTrue(queue.Peek() is null, "nul Peek failed");
+            Assert.IsTrue(queue.Dequeue() is null, "nul Dequeue failed");
+            Assert.IsTrue(TestObjects.en.Equals(queue.Peek()), "en Peek failed");
+            Assert.IsTrue(TestObjects.en.Equals(queue.Dequeue()), "en Dequeue failed");
 
-            Assert.True(0 == queue.Count, $"Queue.Count is incorrect. Expecting 0 got {queue.Count}");
+            Assert.IsTrue(0 == queue.Count, $"Queue.Count is incorrect. Expecting 0 got {queue.Count}");
         }
 
         [TestMethod]
@@ -94,45 +94,45 @@ namespace NFUnitTests
                 queue.Enqueue(i);
             }
 
-            Assert.True(8 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(8 == queue.Count, "Queue.Count is incorrect");
 
             for (int i = 0; i < 4; i++)
             {
-                Assert.True(i.Equals(queue.Peek()), " Peek failed");
-                Assert.True(i.Equals(queue.Dequeue()), " Dequeue failed");
+                Assert.IsTrue(i.Equals(queue.Peek()), " Peek failed");
+                Assert.IsTrue(i.Equals(queue.Dequeue()), " Dequeue failed");
             }
 
-            Assert.True(4 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(4 == queue.Count, "Queue.Count is incorrect");
 
             for (int i = 8; i < 12; i++)
             {
                 queue.Enqueue(i);
             }
 
-            Assert.True(8 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(8 == queue.Count, "Queue.Count is incorrect");
 
             for (int i = 4; i < 6; i++)
             {
-                Assert.True(i.Equals(queue.Peek()), " Peek failed");
-                Assert.True(i.Equals(queue.Dequeue()), " Dequeue failed");
+                Assert.IsTrue(i.Equals(queue.Peek()), " Peek failed");
+                Assert.IsTrue(i.Equals(queue.Dequeue()), " Dequeue failed");
             }
 
-            Assert.True(6 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(6 == queue.Count, "Queue.Count is incorrect");
 
             for (int i = 12; i < 16; i++)
             {
                 queue.Enqueue(i);
             }
 
-            Assert.True(10 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(10 == queue.Count, "Queue.Count is incorrect");
 
             for (int i = 6; i < 16; i++)
             {
-                Assert.True(i.Equals(queue.Peek()), " Peek failed");
-                Assert.True(i.Equals(queue.Dequeue()), " Dequeue failed");
+                Assert.IsTrue(i.Equals(queue.Peek()), " Peek failed");
+                Assert.IsTrue(i.Equals(queue.Dequeue()), " Dequeue failed");
             }
 
-            Assert.True(0 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(0 == queue.Count, "Queue.Count is incorrect");
         }
 
         [TestMethod]
@@ -145,11 +145,11 @@ namespace NFUnitTests
                 queue.Enqueue(null);
             }
 
-            Assert.True(20 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(20 == queue.Count, "Queue.Count is incorrect");
 
             for (int i = 0; i < 20; i++)
             {
-                Assert.Null(queue.Dequeue());
+                Assert.IsNull(queue.Dequeue());
             }
         }
 
@@ -162,13 +162,13 @@ namespace NFUnitTests
 
             queue.Clear();
 
-            Assert.True(0 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(0 == queue.Count, "Queue.Count is incorrect");
 
             queue = BuildWrappedAroundQueue();
 
             queue.Clear();
 
-            Assert.True(0 == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(0 == queue.Count, "Queue.Count is incorrect");
         }
 
         [TestMethod]
@@ -179,22 +179,22 @@ namespace NFUnitTests
             Queue queue = BuildNormalQueue();
             Queue clone = (Queue)queue.Clone();
 
-            Assert.True(_queueElementCount == queue.Count, "Queue.Count is incorrect");
-            Assert.True(_queueElementCount == clone.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(_queueElementCount == queue.Count, "Queue.Count is incorrect");
+            Assert.IsTrue(_queueElementCount == clone.Count, "Queue.Count is incorrect");
 
             for (int i = 2; i < 10; i++)
             {
                 var element = queue.Dequeue();
-                Assert.True(i.Equals(element), $" Dequeue queue failed. Got {element}, was expecting {i}");
+                Assert.IsTrue(i.Equals(element), $" Dequeue queue failed. Got {element}, was expecting {i}");
             }
 
-            Assert.True(0 == queue.Count, $"queue.Count is incorrect. Is {queue.Count} and expecting 0.");
-            Assert.True(_queueElementCount == clone.Count, $"clone.Count is incorrect. Is {clone.Count} and expecting {_queueElementCount}.");
+            Assert.IsTrue(0 == queue.Count, $"queue.Count is incorrect. Is {queue.Count} and expecting 0.");
+            Assert.IsTrue(_queueElementCount == clone.Count, $"clone.Count is incorrect. Is {clone.Count} and expecting {_queueElementCount}.");
 
             for (int i = 2; i < 10; i++)
             {
                 var element = clone.Dequeue();
-                Assert.True(i.Equals(element), $" Dequeue clone failed. Got {element}, was expecting {i}");
+                Assert.IsTrue(i.Equals(element), $" Dequeue clone failed. Got {element}, was expecting {i}");
             }
 
             OutputHelper.WriteLine("Testing with BuildWrappedAroundQueue");
@@ -202,22 +202,22 @@ namespace NFUnitTests
             queue = BuildWrappedAroundQueue();
             clone = (Queue)queue.Clone();
 
-            Assert.True(_queueElementCount == queue.Count, $"queue.Count is incorrect. Is {queue.Count} and expecting {_queueElementCount}.");
-            Assert.True(_queueElementCount == clone.Count, $"clone.Count is incorrect. Is {clone.Count} and expecting {_queueElementCount}.");
+            Assert.IsTrue(_queueElementCount == queue.Count, $"queue.Count is incorrect. Is {queue.Count} and expecting {_queueElementCount}.");
+            Assert.IsTrue(_queueElementCount == clone.Count, $"clone.Count is incorrect. Is {clone.Count} and expecting {_queueElementCount}.");
 
             for (int i = 4; i < 10; i++)
             {
                 var element = queue.Dequeue();
-                Assert.True(i.Equals(element), $" Dequeue queue failed. Got {element}, was expecting {i}");
+                Assert.IsTrue(i.Equals(element), $" Dequeue queue failed. Got {element}, was expecting {i}");
             }
 
-            Assert.True(0 == queue.Count, $"queue.Count is incorrect. Is {queue.Count} and expecting 0.");
-            Assert.True(_queueElementCount == clone.Count, $"clone.Count is incorrect. Is {clone.Count} and expecting {_queueElementCount}.");
+            Assert.IsTrue(0 == queue.Count, $"queue.Count is incorrect. Is {queue.Count} and expecting 0.");
+            Assert.IsTrue(_queueElementCount == clone.Count, $"clone.Count is incorrect. Is {clone.Count} and expecting {_queueElementCount}.");
 
             for (int i = 4; i < 10; i++)
             {
                 var element = clone.Dequeue();
-                Assert.True(i.Equals(element), $" Dequeue clone failed. Got {element}, was expecting {i}");
+                Assert.IsTrue(i.Equals(element), $" Dequeue clone failed. Got {element}, was expecting {i}");
             }
         }
 
@@ -238,8 +238,8 @@ namespace NFUnitTests
 
             for (int i = 2; i < 10; i++)
             {
-                Assert.True(i.Equals(intArray[i]));
-                Assert.True(i.Equals((int)objArray[i]));
+                Assert.IsTrue(i.Equals(intArray[i]));
+                Assert.IsTrue(i.Equals((int)objArray[i]));
             }
 
             OutputHelper.WriteLine("Testing with BuildWrappedAroundQueue");
@@ -253,8 +253,8 @@ namespace NFUnitTests
 
             for (int i = 4; i < 10; i++)
             {
-                Assert.True(i.Equals(intArray[i]));
-                Assert.True(i.Equals((int)objArray[i]));
+                Assert.IsTrue(i.Equals(intArray[i]));
+                Assert.IsTrue(i.Equals((int)objArray[i]));
             }
         }
 
@@ -267,7 +267,7 @@ namespace NFUnitTests
 
             foreach (int i in queue)
             {
-                Assert.True(j++ == i);
+                Assert.IsTrue(j++ == i);
             }
 
             queue = BuildWrappedAroundQueue();
@@ -276,7 +276,7 @@ namespace NFUnitTests
 
             foreach (int i in queue)
             {
-                Assert.True(j++ == i);
+                Assert.IsTrue(j++ == i);
             }
         }
 
@@ -288,31 +288,31 @@ namespace NFUnitTests
 
             for (i = 2; i < 4; i++)
             {
-                Assert.True(queue.Contains(i), $"normal queue doesn't contain {i} and it was supposed to");
+                Assert.IsTrue(queue.Contains(i), $"normal queue doesn't contain {i} and it was supposed to");
             }
 
             for (; i < 10; i++)
             {
-                Assert.True(queue.Contains(i), $"normal queue doesn't contain {i} and it was supposed to");
+                Assert.IsTrue(queue.Contains(i), $"normal queue doesn't contain {i} and it was supposed to");
             }
 
             queue = BuildWrappedAroundQueue();
 
             for (i = 0; i < 4; i++)
             {
-                Assert.False(queue.Contains(i), $"wrapped queue doesn't contain {i} and it was supposed to");
+                Assert.IsFalse(queue.Contains(i), $"wrapped queue doesn't contain {i} and it was supposed to");
             }
 
             for (; i < 10; i++)
             {
-                Assert.True(queue.Contains(i), $"wrapped queue doesn't contain {i} and it was supposed to");
+                Assert.IsTrue(queue.Contains(i), $"wrapped queue doesn't contain {i} and it was supposed to");
             }
 
-            Assert.False(queue.Contains(null), "queue wasn't supposed to contain null");
+            Assert.IsFalse(queue.Contains(null), "queue wasn't supposed to contain null");
 
             queue.Enqueue(null);
 
-            Assert.True(queue.Contains(null), "queue was supposed to contain null");
+            Assert.IsTrue(queue.Contains(null), "queue was supposed to contain null");
         }
 
         [TestMethod]
@@ -323,14 +323,14 @@ namespace NFUnitTests
             int i = 2;
             foreach (Object o in objArray)
             {
-                Assert.True(i++ == (int)o);
+                Assert.IsTrue(i++ == (int)o);
             }
 
             objArray = BuildWrappedAroundQueue().ToArray();
             i = 4;
             foreach (Object o in objArray)
             {
-                Assert.True(i++ == (int)o);
+                Assert.IsTrue(i++ == (int)o);
             }
         }
 
@@ -346,7 +346,7 @@ namespace NFUnitTests
             // update counter            
             _queueElementCount = 10;
 
-            Assert.True(queue.Count == _queueElementCount, "Count of NormalQueue elements failed");
+            Assert.IsTrue(queue.Count == _queueElementCount, "Count of NormalQueue elements failed");
 
             queue.Dequeue();
             _queueElementCount--;
@@ -354,7 +354,7 @@ namespace NFUnitTests
             queue.Dequeue();
             _queueElementCount--;
 
-            Assert.True(queue.Count == _queueElementCount, "Count of NormalQueue elements failed after dequeuing");
+            Assert.IsTrue(queue.Count == _queueElementCount, "Count of NormalQueue elements failed after dequeuing");
 
             return queue;
         }
