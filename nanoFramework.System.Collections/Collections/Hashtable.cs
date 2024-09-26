@@ -276,7 +276,7 @@ namespace System.Collections
                 throw new ArgumentNullException();
             }
 
-            if (arrayIndex < 0 && arrayIndex > _buckets.Length)
+            if (arrayIndex < 0 || arrayIndex > _buckets.Length)
             {
 #pragma warning disable S112 // General exceptions should never be thrown
                 throw new ArgumentOutOfRangeException();
@@ -296,12 +296,16 @@ namespace System.Collections
 
                 for (int i = _buckets.Length; --i >= 0;)
                 {
-                    object keyv = _buckets[i]._key;
-
-                    if ((keyv != null) && (keyv != _buckets))
+                    // can only work with buckets that aren't null
+                    if (_buckets[i] != null)
                     {
-                        ((IList)array)[j] = new DictionaryEntry(_buckets[i]._key, _buckets[i]._value);
-                        j++;
+                        object keyv = _buckets[i]._key;
+
+                        if ((keyv != null) && (keyv != _buckets))
+                        {
+                            ((IList)array)[arrayIndex + j] = new DictionaryEntry(keyv, _buckets[i]._value);
+                            j++;
+                        }
                     }
                 }
             }
@@ -658,12 +662,16 @@ namespace System.Collections
 
                 for (int i = _buckets.Length; --i >= 0;)
                 {
-                    object keyv = _buckets[i]._key;
-
-                    if ((keyv != null) && (keyv != _buckets))
+                    // can only work with buckets that aren't null
+                    if (_buckets[i] != null)
                     {
-                        ((IList)array)[arrayIndex + j] = _buckets[i]._value;
-                        j++;
+                        object keyv = _buckets[i]._key;
+
+                        if ((keyv != null) && (keyv != _buckets))
+                        {
+                            ((IList)array)[arrayIndex + j] = _buckets[i]._value;
+                            j++;
+                        }
                     }
                 }
             }

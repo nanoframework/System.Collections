@@ -277,7 +277,7 @@ namespace NFUnitTests
 
             // Assert
             Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
-            Assert.True(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
             Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
             Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
         }
@@ -1306,6 +1306,267 @@ namespace NFUnitTests
             Assert.IsNull(hashtable[new SomeKey { KeyProperty = "key3" }], "The value for a key that was not added should be null.");
         }
 
+        [TestMethod]
+        public void ValuesCopyTo_IntArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            for (int i = 0; i < 10; i++)
+            {
+                hashtable.Add(i, i * 10);
+            }
+
+            int[] array = new int[10];
+
+            // Act
+            hashtable.Values.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the values, they may not be in the same order
+            // a simplistic check is to sum the elements of both arrays and compare the sums
+
+            int sum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                sum += i * 10;
+                arraySum += array[i];
+            }
+
+            Assert.AreEqual(sum, arraySum, "Sum of elements should be the same.");
+        }
+
+        [TestMethod]
+        public void ValuesCopyTo_StringArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            for (int i = 0; i < 10; i++)
+            {
+                hashtable.Add(i.ToString(), (i * 10).ToString());
+            }
+
+            string[] array = new string[10];
+
+            // Act
+            hashtable.Values.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the values, they may not be in the same order
+            // a simplistic check is to sum the hash code of elements on both arrays and compare the sums
+
+            int sum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                sum += (i * 10).ToString().GetHashCode();
+                arraySum += array[i].GetHashCode();
+            }
+
+            Assert.AreEqual(sum, arraySum, "Sum of hash codes should be the same.");
+        }
+
+        [TestMethod]
+        public void CopyTo_AnotherKeyArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey[] keys = new AnotherKey[10];
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = new AnotherKey { Value = i * 1.1 };
+                hashtable.Add(keys[i], i * 10);
+            }
+
+            AnotherKey[] array = new AnotherKey[10];
+
+            // Act
+            hashtable.Keys.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the keys, they may not be in the same order
+            // a simplistic check is to sum the elements of both arrays and compare the sums
+            int keySum = 0;
+            int arraySum = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                keySum += keys[i].id;
+                arraySum += array[i].id;
+            }
+
+            Assert.AreEqual(keySum, arraySum, "Sum of elements should be the same.");
+        }
+
+        [TestMethod]
+        public void CopyTo_FooArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            Foo[] keys = new Foo[10];
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = new Foo { StringValue = $"foo{i}" };
+                hashtable.Add(keys[i], i * 10);
+            }
+
+            Foo[] array = new Foo[10];
+
+            // Act
+            hashtable.Keys.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the keys, they may not be in the same order
+            // a simplistic check is to sum the hash code of elements of both arrays and compare the sums
+
+            int keySum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                keySum += keys[i].GetHashCode();
+                arraySum += array[i].GetHashCode();
+            }
+
+            Assert.AreEqual(keySum, arraySum, "Sum of hash codes should be the same.");
+        }
+
+        [TestMethod]
+        public void CopyTo_MyClassTypeEntryArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            MyClassTypeEntry[] keys = new MyClassTypeEntry[10];
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = new MyClassTypeEntry($"string{i}", i, Guid.NewGuid());
+                hashtable.Add(keys[i], i * 10);
+            }
+
+            MyClassTypeEntry[] array = new MyClassTypeEntry[10];
+
+            // Act
+            hashtable.Keys.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the keys, they may not be in the same order
+            // a simplistic check is to sum the hash code of elements of both arrays and compare the sums
+
+            int keySum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                keySum += keys[i].GetHashCode();
+                arraySum += array[i].GetHashCode();
+            }
+
+            Assert.AreEqual(keySum, arraySum, "Sum of hash codes should be the same.");
+        }
+
+        [TestMethod]
+        public void CopyTo_SomeOtherKeyArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeOtherKey[] keys = new SomeOtherKey[10];
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = new SomeOtherKey(i);
+                hashtable.Add(keys[i], i * 10);
+            }
+
+            SomeOtherKey[] array = new SomeOtherKey[10];
+
+            // Act
+            hashtable.Keys.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the keys, they may not be in the same order
+            // a simplistic check is to sum the hash code of elements of both arrays and compare the sums
+
+            int keySum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                keySum += keys[i].GetHashCode();
+                arraySum += array[i].GetHashCode();
+            }
+
+            Assert.AreEqual(keySum, arraySum, "Sum of hash codes should be the same.");
+        }
+
+        [TestMethod]
+        public void CopyTo_SomeKeyArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey[] keys = new SomeKey[10];
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = new SomeKey { KeyProperty = $"key{i}" };
+                hashtable.Add(keys[i], i * 10);
+            }
+
+            SomeKey[] array = new SomeKey[10];
+
+            // Act
+            hashtable.Keys.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the keys, they may not be in the same order
+            // a simplistic check is to sum the hash code of elements of both arrays and compare the sums
+
+            int keySum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                keySum += keys[i].GetHashCode();
+                arraySum += array[i].GetHashCode();
+            }
+
+            Assert.AreEqual(keySum, arraySum, "Sum of hash codes should be the same.");
+        }
+
+        [TestMethod]
+        public void CopyTo_SomeOtherArray()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeOtherKey[] keys = new SomeOtherKey[10];
+            for (int i = 0; i < 10; i++)
+            {
+                keys[i] = new SomeOtherKey(i);
+                hashtable.Add(keys[i], i * 10);
+            }
+
+            DictionaryEntry[] array = new DictionaryEntry[10];
+
+            // Act
+            hashtable.CopyTo(array, 0);
+
+            // Assert
+            // despite array elements should be the same as the hash table elements, they may not be in the same order
+            // a simplistic check is to sum the values of elements of both arrays and compare the sums
+            // at the same time, checking if the hash table contains the key
+
+            int keySum = 0;
+            int arraySum = 0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                Assert.IsTrue(hashtable.Contains(array[i].Key), "Hashtable should contain the key.");
+                Assert.AreEqual(hashtable[array[i].Key], array[i].Value, "The value associated with the key should be correct.");
+
+                keySum += i * 10;
+                arraySum += (int)hashtable[array[i].Key];
+            }
+
+            Assert.AreEqual(keySum, arraySum, "Sum of value should be the same.");
+        }
 
         #region helper classes and methods
 
