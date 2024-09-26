@@ -157,6 +157,173 @@ namespace NFUnitTests
             Assert.AreEqual(0, hash.Count);
         }
 
+
+        [TestMethod]
+        public void Add_ModifyKeyProperty_AddAgain()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey initialKey = new AnotherKey();
+
+            // Act
+            // Add component to collection
+            hashtable.Add(initialKey, "some value");
+
+            var initialKeyHashCode = initialKey.GetHashCode();
+            OutputHelper.WriteLine($"Initial key: {initialKeyHashCode}");
+
+            Assert.IsTrue(
+                hashtable.Contains(initialKey),
+                "Hashtable should contain the initial key.");
+
+            // Modify key property
+            initialKey.Value = 1.23456789;
+
+            Assert.AreEqual(
+                initialKeyHashCode,
+                initialKey.GetHashCode(),
+                "Hash code should not change after modifying the key.");
+
+            // try to add the key again
+
+            Assert.ThrowsException(
+                typeof(ArgumentException),
+                () =>
+                {
+                    hashtable.Add(initialKey, "some value");
+                },
+                "Adding the same key should throw an exception.");
+        }
+
+        [TestMethod]
+        public void Add_SameHashCodeDifferentKeys()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key1 = new SomeKey { KeyProperty = "key1" };
+            SomeKey key2 = new SomeKey { KeyProperty = "key2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Add_SameKeyDifferentHashCodes()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key1 = new SomeKey { KeyProperty = "key" };
+            SomeKey key2 = new SomeKey { KeyProperty = "key" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Remove(key1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key1), "Hashtable should not contain key1 after removal.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Add_ModifyKeyHashCode()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key = new SomeKey { KeyProperty = "key" };
+            string value = "value";
+
+            // Act
+            hashtable.Add(key, value);
+
+            // Modify the key property which affects the hash code
+            key.KeyProperty = "modifiedKey";
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key), "Hashtable should not contain the modified key.");
+
+            // Revert the key property to original
+            key.KeyProperty = "key";
+
+            Assert.IsTrue(hashtable.Contains(key), "Hashtable should contain the original key.");
+            Assert.AreEqual(value, hashtable[key], "The value associated with the original key should be correct.");
+        }
+
+        [TestMethod]
+        public void Add_AnotherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey key1 = new AnotherKey { id = 1, Value = 1.1 };
+            AnotherKey key2 = new AnotherKey { id = 2, Value = 2.2 };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.True(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Add_Foo_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            Foo key1 = new Foo { StringValue = "foo1" };
+            Foo key2 = new Foo { StringValue = "foo2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Add_MyClassTypeEntry_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            MyClassTypeEntry key1 = new MyClassTypeEntry("string1", 1, Guid.NewGuid());
+            MyClassTypeEntry key2 = new MyClassTypeEntry("string2", 2, Guid.NewGuid());
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
         [TestMethod]
         public void Clone()
         {
@@ -734,6 +901,412 @@ namespace NFUnitTests
             }
         }
 
+        [TestMethod]
+        public void Remove_AnotherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey key1 = new AnotherKey { id = 1, Value = 1.1 };
+            AnotherKey key2 = new AnotherKey { id = 2, Value = 2.2 };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act
+            hashtable.Remove(key1);
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key1), "Hashtable should not contain key1 after removal.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should still contain key2.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Remove_Foo_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            Foo key1 = new Foo { StringValue = "foo1" };
+            Foo key2 = new Foo { StringValue = "foo2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act
+            hashtable.Remove(key1);
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key1), "Hashtable should not contain key1 after removal.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should still contain key2.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Remove_MyClassTypeEntry_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            MyClassTypeEntry key1 = new MyClassTypeEntry("string1", 1, Guid.NewGuid());
+            MyClassTypeEntry key2 = new MyClassTypeEntry("string2", 2, Guid.NewGuid());
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act
+            hashtable.Remove(key1);
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key1), "Hashtable should not contain key1 after removal.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should still contain key2.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Remove_SomeOtherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new();
+            SomeOtherKey key1 = new SomeOtherKey(1);
+            SomeOtherKey key2 = new SomeOtherKey(2);
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act
+            hashtable.Remove(key1);
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key1), "Hashtable should not contain key1 after removal.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should still contain key2.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Remove_SomeKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key1 = new SomeKey { KeyProperty = "key1" };
+            SomeKey key2 = new SomeKey { KeyProperty = "key2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act
+            hashtable.Remove(key1);
+
+            // Assert
+            Assert.IsFalse(hashtable.Contains(key1), "Hashtable should not contain key1 after removal.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should still contain key2.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Insert_AnotherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey key1 = new AnotherKey { id = 1, Value = 1.1 };
+            AnotherKey key2 = new AnotherKey { id = 2, Value = 2.2 };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1 after insertion.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2 after insertion.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Insert_Foo_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            Foo key1 = new Foo { StringValue = "foo1" };
+            Foo key2 = new Foo { StringValue = "foo2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1 after insertion.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2 after insertion.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Insert_MyClassTypeEntry_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            MyClassTypeEntry key1 = new MyClassTypeEntry("string1", 1, Guid.NewGuid());
+            MyClassTypeEntry key2 = new MyClassTypeEntry("string2", 2, Guid.NewGuid());
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1 after insertion.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2 after insertion.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Insert_SomeOtherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeOtherKey key1 = new SomeOtherKey(1);
+            SomeOtherKey key2 = new SomeOtherKey(2);
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1 after insertion.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2 after insertion.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Insert_SomeKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key1 = new SomeKey { KeyProperty = "key1" };
+            SomeKey key2 = new SomeKey { KeyProperty = "key2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            // Act
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1 after insertion.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2 after insertion.");
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+        }
+
+        [TestMethod]
+        public void Contains_AnotherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey key1 = new AnotherKey { id = 1, Value = 1.1 };
+            AnotherKey key2 = new AnotherKey { id = 2, Value = 2.2 };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.IsFalse(hashtable.Contains(new AnotherKey { id = 3, Value = 3.3 }), "Hashtable should not contain a key that was not added.");
+        }
+
+        [TestMethod]
+        public void Contains_Foo_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            Foo key1 = new Foo { StringValue = "foo1" };
+            Foo key2 = new Foo { StringValue = "foo2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.IsFalse(hashtable.Contains(new Foo { StringValue = "foo3" }), "Hashtable should not contain a key that was not added.");
+        }
+
+        [TestMethod]
+        public void Contains_MyClassTypeEntry_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            MyClassTypeEntry key1 = new MyClassTypeEntry("string1", 1, Guid.NewGuid());
+            MyClassTypeEntry key2 = new MyClassTypeEntry("string2", 2, Guid.NewGuid());
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.IsFalse(hashtable.Contains(new MyClassTypeEntry("string3", 3, Guid.NewGuid())), "Hashtable should not contain a key that was not added.");
+        }
+
+        [TestMethod]
+        public void Contains_SomeOtherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeOtherKey key1 = new SomeOtherKey(1);
+            SomeOtherKey key2 = new SomeOtherKey(2);
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.IsFalse(hashtable.Contains(new SomeOtherKey(3)), "Hashtable should not contain a key that was not added.");
+        }
+
+        [TestMethod]
+        public void Contains_SomeKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key1 = new SomeKey { KeyProperty = "key1" };
+            SomeKey key2 = new SomeKey { KeyProperty = "key2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.IsTrue(hashtable.Contains(key1), "Hashtable should contain key1.");
+            Assert.IsTrue(hashtable.Contains(key2), "Hashtable should contain key2.");
+            Assert.IsFalse(hashtable.Contains(new SomeKey { KeyProperty = "key3" }), "Hashtable should not contain a key that was not added.");
+        }
+
+        [TestMethod]
+        public void Accessor_AnotherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            AnotherKey key1 = new AnotherKey { id = 1, Value = 1.1 };
+            AnotherKey key2 = new AnotherKey { id = 2, Value = 2.2 };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+            Assert.IsNull(hashtable[new AnotherKey { id = 3, Value = 3.3 }], "The value for a key that was not added should be null.");
+        }
+
+        [TestMethod]
+        public void Accessor_Foo_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            Foo key1 = new Foo { StringValue = "foo1" };
+            Foo key2 = new Foo { StringValue = "foo2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+            Assert.IsNull(hashtable[new Foo { StringValue = "foo3" }], "The value for a key that was not added should be null.");
+        }
+
+        [TestMethod]
+        public void Accessor_MyClassTypeEntry_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            MyClassTypeEntry key1 = new MyClassTypeEntry("string1", 1, Guid.NewGuid());
+            MyClassTypeEntry key2 = new MyClassTypeEntry("string2", 2, Guid.NewGuid());
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+            Assert.IsNull(hashtable[new MyClassTypeEntry("string3", 3, Guid.NewGuid())], "The value for a key that was not added should be null.");
+        }
+
+        [TestMethod]
+        public void Accessor_SomeOtherKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeOtherKey key1 = new SomeOtherKey(1);
+            SomeOtherKey key2 = new SomeOtherKey(2);
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+            Assert.IsNull(hashtable[new SomeOtherKey(3)], "The value for a key that was not added should be null.");
+        }
+
+        [TestMethod]
+        public void Accessor_SomeKey_AsKey()
+        {
+            // Arrange
+            Hashtable hashtable = new Hashtable();
+            SomeKey key1 = new SomeKey { KeyProperty = "key1" };
+            SomeKey key2 = new SomeKey { KeyProperty = "key2" };
+            string value1 = "value1";
+            string value2 = "value2";
+
+            hashtable.Add(key1, value1);
+            hashtable.Add(key2, value2);
+
+            // Act & Assert
+            Assert.AreEqual(value1, hashtable[key1], "The value associated with key1 should be correct.");
+            Assert.AreEqual(value2, hashtable[key2], "The value associated with key2 should be correct.");
+            Assert.IsNull(hashtable[new SomeKey { KeyProperty = "key3" }], "The value for a key that was not added should be null.");
+        }
+
+
         #region helper classes and methods
 
         /// <summary>
@@ -840,7 +1413,7 @@ namespace NFUnitTests
             return hashtable;
         }
 
-        public class SomeKey
+        public class EmptyKey
         {
         }
 
@@ -848,18 +1421,12 @@ namespace NFUnitTests
         public class SomeOtherKey
         {
             private readonly int _i;
-
-            public int I => _i;
-
-            public SomeOtherKey()
-            {
-            }
+            public int I { get; }
 
             public SomeOtherKey(int i)
             {
                 _i = i;
             }
-
         }
 
         private class Foo
@@ -955,6 +1522,53 @@ namespace NFUnitTests
             private readonly int m_integralValue;
             private readonly Guid m_structValue;
 
+        }
+
+        public class AnotherKey
+        {
+            private static int idProvider = 31173;
+            public int id;
+            private double _value = 0;
+
+            public double Value
+            {
+                get { return _value; }
+                set { _value = value; }
+            }
+
+            public AnotherKey()
+            {
+                id = idProvider++;
+            }
+
+            public override int GetHashCode()
+            {
+                return id;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is AnotherKey component
+                       && component.id == id;
+            }
+        }
+        class SomeKey
+        {
+            public string KeyProperty { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is SomeKey otherKey)
+                {
+                    return KeyProperty == otherKey.KeyProperty;
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                return (KeyProperty != null) ? KeyProperty.GetHashCode() : 0;
+            }
         }
 
         #endregion

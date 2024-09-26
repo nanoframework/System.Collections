@@ -20,7 +20,7 @@ namespace System.Collections
     {
         private const int InitialSize = 3;
         private const float DefaultLoadFactor = 1.0f;
-        
+
         private readonly Bucket[] _buckets;
         private readonly int _loadsize;
         private float _loadFactor;
@@ -326,13 +326,37 @@ namespace System.Collections
         /// <summary>
         /// Gets or sets the element with the specified key.
         /// </summary>
-        /// <param name="key">The key of the element to get or set.</param>
+        /// <param name="key">The key whose value to get or set.</param>
         /// <returns>The element with the specified key, or <see langword="null"/> if the key does not exist.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="key"/> is <see langword="null"/>.</exception>"
         public object this[object key]
         {
-            get => GetNative(key);
+            get
+            {
 
-            set => InsertNative(key, value, false);
+                if (key == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+                return GetNative(
+                    key,
+                    key.GetHashCode());
+            }
+
+            set
+            {
+                if (key == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
+                InsertNative(
+                    key,
+                    value,
+                    false,
+                    key.GetHashCode());
+            }
         }
 
         /// <summary>
@@ -344,7 +368,11 @@ namespace System.Collections
         /// <exception cref="ArgumentException">An element with the same key already exists in the <see cref="Hashtable"/>.</exception>
         public void Add(
             object key,
-            object value) => InsertNative(key, value, true);
+            object value) => InsertNative(
+                key,
+                value,
+                true,
+                key.GetHashCode());
 
         /// <summary>
         /// Removes all elements from the <see cref="Hashtable"/>.
@@ -369,16 +397,30 @@ namespace System.Collections
         /// This method uses the collection's objects' <see cref="object.Equals(object)"/> method on item to determine whether item exists.
         /// </para>
         /// </remarks>
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern bool Contains(object key);
+        public bool Contains(object key)
+        {
+            return ContainsNative(
+                key,
+                key.GetHashCode());
+        }
 
         /// <summary>
         /// Removes the element with the specified key from the <see cref="Hashtable"/>.
         /// </summary>
         /// <param name="key">The key of the element to remove.</param>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is <see langword="null"/>.</exception>
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        public extern void Remove(object key);
+        public void Remove(object key)
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            RemoveNative(
+                key,
+                key.GetHashCode());
+        }
+
 
         #endregion IDictionary Members
 
@@ -635,13 +677,29 @@ namespace System.Collections
         private extern void InsertNative(
            object key,
            object newValue,
-           bool add);
+           bool add,
+           int keyHashCode);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        private extern object GetNative(object key);
+        private extern object GetNative(
+            object key,
+            int keyHashCode);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         private extern static int GetPrimeNative(int min);
+
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+
+        private extern bool ContainsNative(
+            object key,
+            int keyHashCode);
+
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        private extern void RemoveNative(
+            object key,
+            int keyHashCode);
 
         #endregion
     }
