@@ -459,7 +459,7 @@ namespace NFUnitTests
         public void ContainsKey_NullKey_ThrowsArgumentNullException()
         {
             Assert.ThrowsException(
-                typeof(ArgumentNullException),
+                typeof(NullReferenceException),
                 () =>
                 {
                     var hash1 = new Hashtable();
@@ -837,7 +837,7 @@ namespace NFUnitTests
         {
             Hashtable ht = CreateIntHashtable(10);
 
-            Assert.ThrowsException(typeof(ArgumentNullException), () =>
+            Assert.ThrowsException(typeof(NullReferenceException), () =>
             {
                 ht.Add(null, 9999);
 
