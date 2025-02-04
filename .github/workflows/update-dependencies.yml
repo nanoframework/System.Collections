@@ -3,7 +3,8 @@
 
 # This workflow will periodically check .NET nanoFramework dependencies and updates them in the repository it's running.
 
-name: Daily update dependencies
+name: Update dependencies
+run-name: Update dependencies
 
 on:
   schedule:

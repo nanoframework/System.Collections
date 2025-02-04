@@ -2,6 +2,7 @@
 # See LICENSE file in the project root for full license information.
 
 name: PR Checks
+run-name: PR checks
 
 on:
   pull_request:
