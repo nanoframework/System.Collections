@@ -61,7 +61,7 @@ jobs:
     - name: buildConfiguration
       value: 'Release'
     - name: solution
-      value: 'nanoFramework.DependencyInjection.sln'
+      value: 'nanoFramework.System.Collections.sln'
 
   steps:
 
