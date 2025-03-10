@@ -106,6 +106,7 @@ jobs:
         nanoFramework.Graphics
         nanoFramework.m2mqtt
         amqpnetlite
+        nanoFramework.Networking.Thread
 
 ##################################
 # report build failure to Discord
