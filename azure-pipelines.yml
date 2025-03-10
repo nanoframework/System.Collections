@@ -107,6 +107,7 @@ jobs:
         nanoFramework.m2mqtt
         amqpnetlite
         nanoFramework.Networking.Thread
+        nanoFramework.Bluetooth.Hid
 
 ##################################
 # report build failure to Discord
