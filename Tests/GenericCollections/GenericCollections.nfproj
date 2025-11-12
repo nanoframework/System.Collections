@@ -11,11 +11,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{11A8DD76-328B-46DF-9F39-F559912D0360};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>b63451e5-198d-49fc-95d5-fe0307d8542a</ProjectGuid>
+    <ProjectGuid>2b275f71-e555-46bf-b1fe-c33d4cb06545</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>QueueTests</RootNamespace>
+    <RootNamespace>GenericCollections</RootNamespace>
     <AssemblyName>NFUnitTest</AssemblyName>
     <IsCodedUITest>False</IsCodedUITest>
     <IsTestProject>true</IsTestProject>
@@ -26,9 +26,15 @@
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="QueueTests.cs" />
+    <Compile Include="CollectionTestBase.cs" />
+    <Compile Include="ListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestObjects.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\nanoFramework.System.Collections\nanoFramework.System.Collections.nfproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
@@ -41,17 +47,5 @@
       <HintPath>..\..\packages\nanoFramework.TestFramework.4.0.0-preview.44\lib\nanoFramework.UnitTestLauncher.exe</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="packages.lock.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\nanoFramework.System.Collections\nanoFramework.System.Collections.nfproj" />
-  </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
-  <ProjectExtensions>
-    <ProjectCapabilities>
-      <ProjectConfigurationsDeclaredAsItems />
-    </ProjectCapabilities>
-  </ProjectExtensions>
 </Project>
