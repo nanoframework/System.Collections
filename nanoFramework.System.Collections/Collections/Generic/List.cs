@@ -532,7 +532,7 @@ namespace System.Collections.Generic
         /// <exception cref="ArgumentException"><paramref name="item"/> is of a type that is not assignable to the <see cref="IList"/>.</exception>
         void IList.Insert(int index, object? item)
         {
-            if (!(default(T) == null) && item == null)
+            if (default(T) != null && item == null)
             {
                 throw new ArgumentNullException();
             }
