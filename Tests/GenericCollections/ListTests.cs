@@ -163,6 +163,18 @@ namespace GenericCollections
             Assert.AreEqual(2, listClass.Count);
             listClass.Clear();
             Assert.AreEqual(0, listClass.Count);
+
+            // Test value type containing references
+            var listStruct = new List<DummyStruct>
+            {
+                new(1, "One"),
+                new(2, "Two"),
+                new(3, "Three")
+            };
+
+            Assert.AreEqual(3, listStruct.Count);
+            listStruct.Clear();
+            Assert.AreEqual(0, listStruct.Count);
         }
 
         [TestMethod]
@@ -843,6 +855,18 @@ namespace GenericCollections
         public string Name { get; set; }
 
         public DummyClass(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
+
+    internal struct DummyStruct
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public DummyStruct(int id, string name)
         {
             Id = id;
             Name = name;
