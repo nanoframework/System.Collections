@@ -12,5 +12,6 @@
    <nanoFrameworkAdapter>
        <Logging>Verbose</Logging>
        <IsRealHardware>False</IsRealHardware>
+       <UsePreviewClr>True</UsePreviewClr>
    </nanoFrameworkAdapter>
 </RunSettings>
