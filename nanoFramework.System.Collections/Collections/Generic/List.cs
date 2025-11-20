@@ -459,7 +459,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Returns an enumerator that iterates through the <see cref="List{T}"/>.
         /// </summary>
-        /// <returns>A <see cref="List{T}.Enumerator"/> for the <see cref="List{T}"/>. 
+        /// <returns>A <see cref="List{T}.Enumerator"/> for the <see cref="List{T}"/>.</returns>
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         /// <summary>
