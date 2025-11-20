@@ -664,7 +664,7 @@ namespace GenericCollections
 
             Assert.ThrowsException(typeof(InvalidOperationException), () =>
                 {
-                    foreach (int item in list)
+                    foreach (int _ in list)
                     {
                         list.Add(10); // Modifying during enumeration
                     }
