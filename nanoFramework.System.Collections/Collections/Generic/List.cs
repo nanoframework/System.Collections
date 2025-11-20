@@ -309,8 +309,8 @@ namespace System.Collections.Generic
         {
             _version++;
 
-            // TODO
-            if (true) // RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            // Only clear the array if T is a reference type
+            if (!typeof(T).IsValueType)
             {
                 int size = _size;
                 _size = 0;
