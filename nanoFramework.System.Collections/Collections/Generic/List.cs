@@ -286,7 +286,7 @@ namespace System.Collections.Generic
         /// Adds an item to the <see cref="IList"/>.
         /// </summary>
         /// <param name="item">The object to add to the <see cref="IList"/>. The value can be <see langword="null"/> for reference types.</param>
-        /// <returns></returns>
+        /// <returns>The index at which the new element was inserted.</returns>
         /// <exception cref="ArgumentException"><paramref name="item"/> is of a type that is not assignable to the <see cref="IList"/>.</exception>
         int IList.Add(object item)
         {
