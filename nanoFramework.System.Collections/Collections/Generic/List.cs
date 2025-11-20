@@ -4,6 +4,7 @@
 #nullable enable
 
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace System.Collections.Generic
 {
@@ -309,8 +310,7 @@ namespace System.Collections.Generic
         {
             _version++;
 
-            // TODO
-            if (true) // RuntimeHelpers.IsReferenceOrContainsReferences<T>())
+            if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
             {
                 int size = _size;
                 _size = 0;
