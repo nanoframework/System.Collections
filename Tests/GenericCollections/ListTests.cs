@@ -649,7 +649,7 @@ namespace GenericCollections
             var list = new List<int>();
             int count = 0;
 
-            foreach (int item in list)
+            foreach (int _ in list)
             {
                 count++;
             }
