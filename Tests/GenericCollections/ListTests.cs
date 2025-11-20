@@ -368,7 +368,7 @@ namespace GenericCollections
         {
             Assert.ThrowsException(typeof(ArgumentNullException), () =>
             {
-                var list = new List<int>(null);
+                new List<int>(null);
             });
         }
 
