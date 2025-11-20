@@ -12,7 +12,8 @@
     <ProjectGuid>ADEC287F-9989-40D3-A560-D918B90FFB03</ProjectGuid>
     <OutputType>Library</OutputType>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace></RootNamespace>
+    <LangVersion>default</LangVersion>
+    <RootNamespace>System.Collections</RootNamespace>
     <AssemblyName>nanoFramework.System.Collections</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
     <NF_IsCoreLibrary>True</NF_IsCoreLibrary>
@@ -48,6 +49,12 @@
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="Collections\Generic\ICollectionDebugView.cs" />
+    <Compile Include="Collections\Generic\IReadOnlyCollection.cs" />
+    <Compile Include="Collections\Generic\IReadOnlyList.cs" />
+    <Compile Include="Collections\Generic\ICollection.cs" />
+    <Compile Include="Collections\Generic\IList.cs" />
+    <Compile Include="Collections\Generic\List.cs" />
     <Compile Include="Collections\Hashtable.Bucket.cs" />
     <Compile Include="Collections\IDictionaryEnumerator.cs" />
     <Compile Include="Collections\DictionaryEntry.cs" />
@@ -63,8 +70,8 @@
     <None Include="packages.lock.json" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="mscorlib, Version=1.17.11.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\packages\nanoFramework.CoreLibrary.1.17.11\lib\mscorlib.dll</HintPath>
+    <Reference Include="mscorlib">
+      <HintPath>..\packages\nanoFramework.CoreLibrary.2.0.0-preview.20\lib\netnano1.0\mscorlib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
