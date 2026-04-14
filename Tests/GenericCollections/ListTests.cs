@@ -847,6 +847,464 @@ namespace GenericCollections
                 Assert.AreEqual(i, list[i]);
             }
         }
+
+        [TestMethod]
+        public void List_Foreach_Int_Sum()
+        {
+            // Iterate List<int> directly using foreach (uses struct Enumerator via pattern-based dispatch)
+            var list = new List<int> { 1, 2, 3, 4, 5 };
+            int sum = 0;
+            int count = 0;
+
+            foreach (int item in list)
+            {
+                sum += item;
+                count++;
+            }
+
+            Assert.AreEqual(15, sum);
+            Assert.AreEqual(5, count);
+        }
+
+        [TestMethod]
+        public void List_Foreach_String_Concat()
+        {
+            // Iterate List<string> directly using foreach
+            var list = new List<string> { "Hello", " ", "World" };
+            string result = "";
+
+            foreach (string item in list)
+            {
+                result += item;
+            }
+
+            Assert.AreEqual("Hello World", result);
+        }
+
+        [TestMethod]
+        public void List_Foreach_Class_Properties()
+        {
+            // Iterate List<DummyClass> directly using foreach and access properties
+            var list = new List<DummyClass>
+            {
+                new(1, "One"),
+                new(2, "Two"),
+                new(3, "Three")
+            };
+
+            int idSum = 0;
+            string names = "";
+
+            foreach (DummyClass item in list)
+            {
+                idSum += item.Id;
+                names += item.Name;
+            }
+
+            Assert.AreEqual(6, idSum);
+            Assert.AreEqual("OneTwoThree", names);
+        }
+
+        [TestMethod]
+        public void List_Foreach_MultipleTypes()
+        {
+            // Verifies generic type context is correct across different closed generic instantiations
+            var intList = new List<int> { 10, 20, 30 };
+            var stringList = new List<string> { "A", "B", "C" };
+
+            int intSum = 0;
+            foreach (int item in intList)
+            {
+                intSum += item;
+            }
+            Assert.AreEqual(60, intSum);
+
+            string concat = "";
+            foreach (string item in stringList)
+            {
+                concat += item;
+            }
+            Assert.AreEqual("ABC", concat);
+        }
+
+        [TestMethod]
+        public void List_Foreach_Struct()
+        {
+            // Iterate List<DummyStruct> directly using foreach
+            var list = new List<DummyStruct>
+            {
+                new(1, "One"),
+                new(2, "Two"),
+                new(3, "Three")
+            };
+
+            int idSum = 0;
+
+            foreach (DummyStruct item in list)
+            {
+                idSum += item.Id;
+            }
+
+            Assert.AreEqual(6, idSum);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_Add()
+        {
+            var list = new List<int> { 1, 2, 3 };
+            AddItemToList(list, 4);
+
+            Assert.AreEqual(4, list.Count);
+            Assert.AreEqual(4, list[3]);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_Contains()
+        {
+            var list = new List<int> { 10, 20, 30 };
+
+            Assert.IsTrue(GenericContains(list, 20));
+            Assert.IsFalse(GenericContains(list, 99));
+        }
+
+        //[TestMethod]
+        //public void List_GenericMethod_IndexOf()
+        //{
+        //    var list = new List<string> { "A", "B", "C" };
+
+        //    Assert.AreEqual(1, GenericIndexOf(list, "B"));
+        //    Assert.AreEqual(-1, GenericIndexOf(list, "Z"));
+        //}
+
+        [TestMethod]
+        public void List_GenericMethod_Remove()
+        {
+            var list = new List<int> { 1, 2, 3, 4, 5 };
+
+            Assert.IsTrue(GenericRemove(list, 3));
+            Assert.AreEqual(4, list.Count);
+            Assert.IsFalse(GenericRemove(list, 99));
+            Assert.AreEqual(4, list.Count);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_Insert()
+        {
+            var list = new List<int> { 1, 3, 4 };
+            GenericInsert(list, 1, 2);
+
+            Assert.AreEqual(4, list.Count);
+            Assert.AreEqual(1, list[0]);
+            Assert.AreEqual(2, list[1]);
+            Assert.AreEqual(3, list[2]);
+            Assert.AreEqual(4, list[3]);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_Indexer()
+        {
+            var list = new List<int> { 10, 20, 30 };
+
+            Assert.AreEqual(20, GenericGetItem(list, 1));
+
+            GenericSetItem(list, 1, 99);
+            Assert.AreEqual(99, list[1]);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_Count()
+        {
+            var list = new List<string> { "A", "B", "C", "D" };
+            Assert.AreEqual(4, GenericCount(list));
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_Clear()
+        {
+            var list = new List<int> { 1, 2, 3 };
+            GenericClear(list);
+            Assert.AreEqual(0, list.Count);
+        }
+
+        // Generic helper methods. The IL generated for these methods contains
+        // MethodRef tokens whose owner TypeSpec is List<!!0> (MVAR).
+        // At runtime, CALLVIRT resolves !!0 from the caller's MethodSpec context.
+
+        private static void AddItemToList<T>(List<T> list, T item)
+        {
+            list.Add(item);
+        }
+
+        private static bool GenericContains<T>(List<T> list, T item)
+        {
+            return list.Contains(item);
+        }
+
+        private static int GenericIndexOf<T>(List<T> list, T item)
+        {
+            return list.IndexOf(item);
+        }
+
+        private static bool GenericRemove<T>(List<T> list, T item)
+        {
+            return list.Remove(item);
+        }
+
+        private static void GenericInsert<T>(List<T> list, int index, T item)
+        {
+            list.Insert(index, item);
+        }
+
+        private static T GenericGetItem<T>(List<T> list, int index)
+        {
+            return list[index];
+        }
+
+        private static void GenericSetItem<T>(List<T> list, int index, T value)
+        {
+            list[index] = value;
+        }
+
+        private static int GenericCount<T>(List<T> list)
+        {
+            return list.Count;
+        }
+
+        private static void GenericClear<T>(List<T> list)
+        {
+            list.Clear();
+        }
+
+        [TestMethod]
+        public void List_Constructor_FromList()
+        {
+            // Create a List<int> from another List<int> through IEnumerable<int>
+            var source = new List<int> { 1, 2, 3, 4, 5 };
+            var copy = new List<int>(source);
+
+            Assert.AreEqual(5, copy.Count);
+            Assert.AreEqual(1, copy[0]);
+            Assert.AreEqual(3, copy[2]);
+            Assert.AreEqual(5, copy[4]);
+        }
+
+        [TestMethod]
+        public void List_Constructor_FromList_String()
+        {
+            // Create a List<string> from another List<string>
+            var source = new List<string> { "A", "B", "C" };
+            var copy = new List<string>(source);
+
+            Assert.AreEqual(3, copy.Count);
+            Assert.AreEqual("A", copy[0]);
+            Assert.AreEqual("B", copy[1]);
+            Assert.AreEqual("C", copy[2]);
+        }
+
+        [TestMethod]
+        public void List_Enumerator_Reset()
+        {
+            // Exercise enumerator lifecycle: iterate, then iterate again after reset
+            var list = new List<int> { 10, 20, 30 };
+            int firstPass = 0;
+            int secondPass = 0;
+
+            foreach (int item in list)
+            {
+                firstPass += item;
+            }
+
+            foreach (int item in list)
+            {
+                secondPass += item;
+            }
+
+            Assert.AreEqual(60, firstPass);
+            Assert.AreEqual(60, secondPass);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_NewObj_Foreach_Int()
+        {
+            int result = SumList(new int[] { 1, 2, 3, 4, 5 });
+            Assert.AreEqual(15, result);
+        }
+
+        //[TestMethod]
+        //public void List_GenericMethod_NewObj_Foreach_String()
+        //{
+        //    string result = ConcatList(new string[] { "Hello", " ", "World" });
+        //    Assert.AreEqual("Hello World", result);
+        //}
+
+        //[TestMethod]
+        //public void List_GenericMethod_NewObj_Foreach_Class()
+        //{
+        //    var items = new DummyClass[]
+        //    {
+        //        new(1, "One"),
+        //        new(2, "Two"),
+        //        new(3, "Three")
+        //    };
+
+        //    var result = CollectFromList(items);
+        //    Assert.AreEqual(3, result.Length);
+        //    Assert.AreEqual(1, result[0].Id);
+        //    Assert.AreEqual("Two", result[1].Name);
+        //    Assert.AreEqual(3, result[2].Id);
+        //}
+
+        // TODO: fix parsing test result
+        //[TestMethod]
+        //public void List_GenericMethod_NewObj_Contains()
+        //{
+        //    Assert.IsTrue(ListContains(new int[] { 1, 2, 3 }, 2));
+        //    Assert.IsFalse(ListContains(new int[] { 1, 2, 3 }, 5));
+
+        //    Assert.IsTrue(ListContains(new string[] { "A", "B", "C" }, "B"));
+        //    Assert.IsFalse(ListContains(new string[] { "A", "B", "C" }, "Z"));
+        //}
+
+        // TODO: requires fixing support for nested VAR token resolution
+        //[TestMethod]
+        //public void List_GenericMethod_NewObj_AddAndCount()
+        //{
+        //    Assert.AreEqual(5, BuildListAndCount(1, 2, 3, 4, 5));
+        //    Assert.AreEqual(3, BuildListAndCount("A", "B", "C"));
+        //}
+
+        // TODO: fix parsing test result
+        //[TestMethod]
+        //public void List_GenericMethod_NewObj_IndexOf()
+        //{
+        //    Assert.AreEqual(2, ListIndexOf(new int[] { 10, 20, 30, 40 }, 30));
+        //    Assert.AreEqual(-1, ListIndexOf(new int[] { 10, 20, 30, 40 }, 99));
+
+        //    Assert.AreEqual(1, ListIndexOf(new string[] { "X", "Y", "Z" }, "Y"));
+        //    Assert.AreEqual(-1, ListIndexOf(new string[] { "X", "Y", "Z" }, "W"));
+        //}
+
+        [TestMethod]
+        public void List_GenericMethod_NewObj_RemoveAndVerify()
+        {
+            var remaining = RemoveFromList(new int[] { 1, 2, 3, 4, 5 }, 3);
+            Assert.AreEqual(4, remaining.Length);
+            Assert.AreEqual(1, remaining[0]);
+            Assert.AreEqual(2, remaining[1]);
+            Assert.AreEqual(4, remaining[2]);
+            Assert.AreEqual(5, remaining[3]);
+        }
+
+        [TestMethod]
+        public void List_GenericMethod_NewObj_InsertAndIterate()
+        {
+            var result = InsertIntoList(new int[] { 1, 3, 4 }, 1, 2);
+            Assert.AreEqual(4, result.Length);
+            Assert.AreEqual(1, result[0]);
+            Assert.AreEqual(2, result[1]);
+            Assert.AreEqual(3, result[2]);
+            Assert.AreEqual(4, result[3]);
+        }
+
+        // Generic helper methods that exercise NEWOBJ with MVAR TypeSpecs.
+        // Each method creates a new List<T> from within a generic method body,
+        // producing IL with MethodRef tokens whose owner TypeSpec is List<!!0>.
+
+        private static int SumList<T>(T[] source) where T : struct
+        {
+            var list = new List<T>(source);
+            int sum = 0;
+
+            foreach (T item in list)
+            {
+                sum += (int)(object)item;
+            }
+
+            return sum;
+        }
+
+        private static string ConcatList<T>(T[] source)
+        {
+            var list = new List<T>(source);
+            string result = "";
+
+            foreach (T item in list)
+            {
+                result += item.ToString();
+            }
+
+            return result;
+        }
+
+        private static T[] CollectFromList<T>(T[] source)
+        {
+            var list = new List<T>(source);
+            var result = new T[list.Count];
+            int i = 0;
+
+            foreach (T item in list)
+            {
+                result[i++] = item;
+            }
+
+            return result;
+        }
+
+        private static bool ListContains<T>(T[] source, T value)
+        {
+            var list = new List<T>(source);
+            return list.Contains(value);
+        }
+
+        private static int BuildListAndCount<T>(params T[] items)
+        {
+            var list = new List<T>();
+
+            foreach (T item in items)
+            {
+                list.Add(item);
+            }
+
+            return list.Count;
+        }
+
+        private static int ListIndexOf<T>(T[] source, T value)
+        {
+            var list = new List<T>(source);
+            return list.IndexOf(value);
+        }
+
+        private static T[] RemoveFromList<T>(T[] source, T itemToRemove)
+        {
+            var list = new List<T>(source);
+            list.Remove(itemToRemove);
+
+            var result = new T[list.Count];
+            int i = 0;
+
+            foreach (T item in list)
+            {
+                result[i++] = item;
+            }
+
+            return result;
+        }
+
+        private static T[] InsertIntoList<T>(T[] source, int index, T item)
+        {
+            var list = new List<T>(source);
+            list.Insert(index, item);
+
+            var result = new T[list.Count];
+            int i = 0;
+
+            foreach (T entry in list)
+            {
+                result[i++] = entry;
+            }
+
+            return result;
+        }
     }
 
     internal class DummyClass
