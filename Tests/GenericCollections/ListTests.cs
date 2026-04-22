@@ -1130,59 +1130,56 @@ namespace GenericCollections
             Assert.AreEqual(15, result);
         }
 
-        //[TestMethod]
-        //public void List_GenericMethod_NewObj_Foreach_String()
-        //{
-        //    string result = ConcatList(new string[] { "Hello", " ", "World" });
-        //    Assert.AreEqual("Hello World", result);
-        //}
+        [TestMethod]
+        public void List_GenericMethod_NewObj_Foreach_String()
+        {
+            string result = ConcatList(new string[] { "Hello", " ", "World" });
+            Assert.AreEqual("Hello World", result);
+        }
 
-        //[TestMethod]
-        //public void List_GenericMethod_NewObj_Foreach_Class()
-        //{
-        //    var items = new DummyClass[]
-        //    {
-        //        new(1, "One"),
-        //        new(2, "Two"),
-        //        new(3, "Three")
-        //    };
+        [TestMethod]
+        public void List_GenericMethod_NewObj_Foreach_Class()
+        {
+            var items = new DummyClass[]
+            {
+                new(1, "One"),
+                new(2, "Two"),
+                new(3, "Three")
+            };
 
-        //    var result = CollectFromList(items);
-        //    Assert.AreEqual(3, result.Length);
-        //    Assert.AreEqual(1, result[0].Id);
-        //    Assert.AreEqual("Two", result[1].Name);
-        //    Assert.AreEqual(3, result[2].Id);
-        //}
+            var result = CollectFromList(items);
+            Assert.AreEqual(3, result.Length);
+            Assert.AreEqual(1, result[0].Id);
+            Assert.AreEqual("Two", result[1].Name);
+            Assert.AreEqual(3, result[2].Id);
+        }
 
-        // TODO: fix parsing test result
-        //[TestMethod]
-        //public void List_GenericMethod_NewObj_Contains()
-        //{
-        //    Assert.IsTrue(ListContains(new int[] { 1, 2, 3 }, 2));
-        //    Assert.IsFalse(ListContains(new int[] { 1, 2, 3 }, 5));
+        [TestMethod]
+        public void List_GenericMethod_NewObj_Contains()
+        {
+            Assert.IsTrue(ListContains(new int[] { 1, 2, 3 }, 2));
+            Assert.IsFalse(ListContains(new int[] { 1, 2, 3 }, 5));
 
-        //    Assert.IsTrue(ListContains(new string[] { "A", "B", "C" }, "B"));
-        //    Assert.IsFalse(ListContains(new string[] { "A", "B", "C" }, "Z"));
-        //}
+            Assert.IsTrue(ListContains(new string[] { "A", "B", "C" }, "B"));
+            Assert.IsFalse(ListContains(new string[] { "A", "B", "C" }, "Z"));
+        }
 
-        // TODO: requires fixing support for nested VAR token resolution
-        //[TestMethod]
-        //public void List_GenericMethod_NewObj_AddAndCount()
-        //{
-        //    Assert.AreEqual(5, BuildListAndCount(1, 2, 3, 4, 5));
-        //    Assert.AreEqual(3, BuildListAndCount("A", "B", "C"));
-        //}
+        [TestMethod]
+        public void List_GenericMethod_NewObj_AddAndCount()
+        {
+            Assert.AreEqual(5, BuildListAndCount(1, 2, 3, 4, 5));
+            Assert.AreEqual(3, BuildListAndCount("A", "B", "C"));
+        }
 
-        // TODO: fix parsing test result
-        //[TestMethod]
-        //public void List_GenericMethod_NewObj_IndexOf()
-        //{
-        //    Assert.AreEqual(2, ListIndexOf(new int[] { 10, 20, 30, 40 }, 30));
-        //    Assert.AreEqual(-1, ListIndexOf(new int[] { 10, 20, 30, 40 }, 99));
+        [TestMethod]
+        public void List_GenericMethod_NewObj_IndexOf()
+        {
+            Assert.AreEqual(2, ListIndexOf(new int[] { 10, 20, 30, 40 }, 30));
+            Assert.AreEqual(-1, ListIndexOf(new int[] { 10, 20, 30, 40 }, 99));
 
-        //    Assert.AreEqual(1, ListIndexOf(new string[] { "X", "Y", "Z" }, "Y"));
-        //    Assert.AreEqual(-1, ListIndexOf(new string[] { "X", "Y", "Z" }, "W"));
-        //}
+            Assert.AreEqual(1, ListIndexOf(new string[] { "X", "Y", "Z" }, "Y"));
+            Assert.AreEqual(-1, ListIndexOf(new string[] { "X", "Y", "Z" }, "W"));
+        }
 
         [TestMethod]
         public void List_GenericMethod_NewObj_RemoveAndVerify()
