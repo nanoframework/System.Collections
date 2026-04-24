@@ -49,9 +49,15 @@
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
+    <Compile Include="Collections\Generic\DebugViewDictionaryItem.cs" />
+    <Compile Include="Collections\Generic\Dictionary.cs" />
+    <Compile Include="Collections\Generic\IDictionary.cs" />
+    <Compile Include="Collections\Generic\IDictionaryDebugView.cs" />
     <Compile Include="Collections\Generic\IReadOnlyCollection.cs" />
+    <Compile Include="Collections\Generic\IReadOnlyDictionary.cs" />
     <Compile Include="Collections\Generic\IReadOnlyList.cs" />
     <Compile Include="Collections\Generic\IList.cs" />
+    <Compile Include="Collections\Generic\KeyValuePair.cs" />
     <Compile Include="Collections\Generic\List.cs" />
     <Compile Include="Collections\Hashtable.Bucket.cs" />
     <Compile Include="Collections\IDictionaryEnumerator.cs" />
