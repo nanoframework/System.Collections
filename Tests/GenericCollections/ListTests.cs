@@ -1203,6 +1203,32 @@ namespace GenericCollections
             Assert.AreEqual(4, result[3]);
         }
 
+        [TestMethod]
+        public void List_StaticField_ValueType_Add()
+        {
+            // Reproduces nanoframework/Home#1821: a List<T> held in a static readonly
+            // field initialized via a field initializer (i.e. constructed from the
+            // declaring type's own .cctor), then Add()'d to from another method.
+            StaticListHolder.Numbers.Add(1);
+            StaticListHolder.Numbers.Add(2);
+
+            Assert.AreEqual(2, StaticListHolder.Numbers.Count);
+            Assert.AreEqual(1, StaticListHolder.Numbers[0]);
+            Assert.AreEqual(2, StaticListHolder.Numbers[1]);
+        }
+
+        [TestMethod]
+        public void List_StaticField_ReferenceType_Add()
+        {
+            // Reproduces nanoframework/Home#1821 with a reference-type element,
+            // mirroring the reported List<Ds18b20> Sensors static field.
+            StaticListHolder.Items.Add(new DummyClass(1, "One"));
+
+            Assert.AreEqual(1, StaticListHolder.Items.Count);
+            Assert.AreEqual(1, StaticListHolder.Items[0].Id);
+            Assert.AreEqual("One", StaticListHolder.Items[0].Name);
+        }
+
         // Generic helper methods that exercise NEWOBJ with MVAR TypeSpecs.
         // Each method creates a new List<T> from within a generic method body,
         // producing IL with MethodRef tokens whose owner TypeSpec is List<!!0>.
@@ -1314,6 +1340,14 @@ namespace GenericCollections
             Id = id;
             Name = name;
         }
+    }
+
+    // Field initializers below run as part of this type's own .cctor, matching the
+    // pattern reported in nanoframework/Home#1821 (`private static readonly List<T> ... = new List<T>();`).
+    internal static class StaticListHolder
+    {
+        internal static readonly List<int> Numbers = new List<int>();
+        internal static readonly List<DummyClass> Items = new List<DummyClass>();
     }
 
     internal struct DummyStruct
