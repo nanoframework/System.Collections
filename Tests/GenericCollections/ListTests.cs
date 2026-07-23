@@ -11,6 +11,16 @@ namespace GenericCollections
     [TestClass]
     public class ListTests
     {
+        [Cleanup]
+        public void CleanupTests()
+        {
+            // StaticListHolder is shared static state (see nanoframework/Home#1821
+            // repro below); clear it so List_StaticField_* tests start empty on
+            // every run/retry, even if a prior test's assertions failed.
+            StaticListHolder.Numbers.Clear();
+            StaticListHolder.Items.Clear();
+        }
+
         [TestMethod]
         public void List_Constructor_Default()
         {
