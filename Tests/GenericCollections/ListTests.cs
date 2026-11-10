@@ -840,6 +840,139 @@ namespace GenericCollections
         }
 
         [TestMethod]
+        public void List_NonGenericIEnumerable_Foreach()
+        {
+            IEnumerable ints = new List<int> { 1, 2, 3 };
+            int sum = 0;
+            foreach (object item in ints)
+            {
+                sum += (int)item;
+            }
+
+            Assert.AreEqual(6, sum);
+
+            IEnumerable strings = new List<string> { "A", "B" };
+            string joined = "";
+            foreach (object item in strings)
+            {
+                joined += (string)item;
+            }
+
+            Assert.AreEqual("AB", joined);
+
+            IEnumerable nested = new List<List<int>> { new List<int> { 1 }, new List<int> { 2, 3 } };
+            int count = 0;
+            foreach (object item in nested)
+            {
+                count += ((List<int>)item).Count;
+            }
+
+            Assert.AreEqual(3, count);
+        }
+
+        [TestMethod]
+        public void List_NonGenericIList_ReferenceElements()
+        {
+            IList list = new List<string>();
+
+            Assert.AreEqual(0, list.Add("a"));
+            Assert.AreEqual(1, list.Add("b"));
+            Assert.AreEqual(2, list.Count);
+            Assert.AreEqual("a", list[0]);
+
+            Assert.IsTrue(list.Contains("b"));
+            Assert.IsFalse(list.Contains("z"));
+            Assert.AreEqual(1, list.IndexOf("b"));
+
+            list[0] = "c";
+            Assert.AreEqual("c", list[0]);
+
+            list.Insert(0, "d");
+            Assert.AreEqual("d", list[0]);
+            Assert.AreEqual(3, list.Count);
+
+            list.Remove("c");
+            Assert.AreEqual(2, list.Count);
+            Assert.IsFalse(list.Contains("c"));
+        }
+
+        [TestMethod]
+        public void List_NonGenericIList_NestedGenericElements()
+        {
+            IList list = new List<List<int>>();
+            var first = new List<int> { 1 };
+            var second = new List<int> { 2 };
+
+            Assert.AreEqual(0, list.Add(first));
+            Assert.AreEqual(1, list.Add(second));
+            Assert.AreEqual(2, list.Count);
+            Assert.AreSame(first, list[0]);
+
+            Assert.IsTrue(list.Contains(second));
+            Assert.AreEqual(1, list.IndexOf(second));
+
+            list[0] = second;
+            Assert.AreSame(second, list[0]);
+
+            list.Insert(0, first);
+            Assert.AreSame(first, list[0]);
+            Assert.AreEqual(3, list.Count);
+
+            list.Remove(first);
+            Assert.AreEqual(2, list.Count);
+        }
+
+        [TestMethod]
+        public void List_NonGenericIList_WrongElementType_Throws()
+        {
+            IList ints = new List<int>();
+            Assert.ThrowsException(typeof(ArgumentException), () =>
+            {
+                ints.Add("x");
+            });
+
+            IList strings = new List<string>();
+            Assert.ThrowsException(typeof(ArgumentException), () =>
+            {
+                strings.Add(5);
+            });
+
+            Assert.AreEqual(0, ints.Count);
+            Assert.AreEqual(0, strings.Count);
+        }
+
+        [TestMethod]
+        public void List_NonGenericIList_Null()
+        {
+            IList strings = new List<string>();
+            strings.Add(null);
+            Assert.AreEqual(1, strings.Count);
+            Assert.IsNull(strings[0]);
+
+            IList ints = new List<int>();
+            Assert.ThrowsException(typeof(ArgumentNullException), () =>
+            {
+                ints.Insert(0, null);
+            });
+        }
+
+        [TestMethod]
+        public void List_Constructor_FromIEnumerableOfInt()
+        {
+            IEnumerable<int> fromList = new List<int> { 1, 2, 3 };
+            var copy = new List<int>(fromList);
+
+            Assert.AreEqual(3, copy.Count);
+            Assert.AreEqual(3, copy[2]);
+
+            IEnumerable<int> fromArray = new int[] { 4, 5 };
+            var copyFromArray = new List<int>(fromArray);
+
+            Assert.AreEqual(2, copyFromArray.Count);
+            Assert.AreEqual(5, copyFromArray[1]);
+        }
+
+        [TestMethod]
         public void List_LargeCapacity_Growth()
         {
             var list = new List<int>();

@@ -3,6 +3,7 @@
 
 using nanoFramework.TestFramework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace GenericCollections
@@ -20,6 +21,23 @@ namespace GenericCollections
             var dict = new Dictionary<int, string>();
             Assert.IsNotNull(dict);
             Assert.AreEqual(0, dict.Count);
+        }
+
+        [TestMethod]
+        public void Dictionary_NonGenericEnumerable_Foreach()
+        {
+            var dict = new Dictionary<string, int>();
+            dict.Add("a", 1);
+            dict.Add("b", 2);
+
+            IEnumerable enumerable = dict;
+            int sum = 0;
+            foreach (object item in enumerable)
+            {
+                sum += ((KeyValuePair<string, int>)item).Value;
+            }
+
+            Assert.AreEqual(3, sum);
         }
 
         [TestMethod]
