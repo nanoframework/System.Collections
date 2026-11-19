@@ -31,6 +31,7 @@
     <Compile Include="CollectionTestBase.cs" />
     <Compile Include="DictionaryTests.cs" />
     <Compile Include="ListTests.cs" />
+    <Compile Include="VarianceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
