@@ -27,7 +27,7 @@ namespace GenericCollections
         {
             object ints = new int[1];
 
-            Assert.IsFalse(ints is IList<uint>);
+            Assert.IsFalse(ints is IList<long>);
             Assert.IsFalse(ints is IList<string>);
             Assert.IsFalse(ints is IList<object>);
             Assert.IsFalse(ints is IReadOnlyCollection<string>);
