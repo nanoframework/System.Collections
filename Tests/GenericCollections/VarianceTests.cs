@@ -237,7 +237,7 @@ namespace GenericCollections
         {
             IList<VarBase> list = (IList<VarBase>)(object)new VarDerived[1];
 
-            Assert.ThrowsException(typeof(Exception), () => { list[0] = new VarBase(); });
+            Assert.ThrowsException(typeof(ArrayTypeMismatchException), () => { list[0] = new VarBase(); });
         }
 
         [TestMethod]
@@ -332,7 +332,7 @@ namespace GenericCollections
             target[0] = new List<VarDerived>();
 
             Assert.IsNotNull(target[0]);
-            Assert.ThrowsException(typeof(Exception), () => { target[0] = new List<VarBase>(); });
+            Assert.ThrowsException(typeof(ArrayTypeMismatchException), () => { target[0] = new List<VarBase>(); });
         }
 
         [TestMethod]

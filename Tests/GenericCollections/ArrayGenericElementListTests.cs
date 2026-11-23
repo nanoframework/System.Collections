@@ -42,7 +42,7 @@ namespace GenericCollections
         {
             object[] array = new ListStoreBox<int>[1];
 
-            Assert.ThrowsException(typeof(Exception), () => { array[0] = new ListStoreBox<string>(); });
+            Assert.ThrowsException(typeof(ArrayTypeMismatchException), () => { array[0] = new ListStoreBox<string>(); });
         }
 
         [TestMethod]
